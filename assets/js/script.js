@@ -284,13 +284,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Background Slider
     const heroSection = document.querySelector('.hero');
     const backgroundImages = [
-        '/huddlehome/assets/images/family_hero_background_optimized.jpg',
-        '/huddlehome/assets/images/family2_hero_background_left_aligned_optimized.jpg',
-        '/huddlehome/assets/images/family3_hero_autumn_optimized.jpg',
-        '/huddlehome/assets/images/family_chores_1_optimized.jpg',
-        '/huddlehome/assets/images/family_chores_2_optimized.jpg',
-        '/huddlehome/assets/images/family_chores_3_optimized.jpg',
-        '/huddlehome/assets/images/family_chores_caucasian_optimized.jpg'
+        '/assets/images/family_hero_background_optimized.jpg',
+        '/assets/images/family2_hero_background_left_aligned_optimized.jpg',
+        '/assets/images/family3_hero_autumn_optimized.jpg',
+        '/assets/images/family_chores_1_optimized.jpg',
+        '/assets/images/family_chores_2_optimized.jpg',
+        '/assets/images/family_chores_3_optimized.jpg',
+        '/assets/images/family_chores_caucasian_optimized.jpg'
     ];
     
     let currentImageIndex = 0;
