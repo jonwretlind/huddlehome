@@ -1,0 +1,26 @@
+HuddleHome.casa AWS Notes
+
+EC2 t2.nano (for development of MVP)
+Instance ID: i-0d2d30b2a7f16be57
+Security Group ID: sg-03409d59de22231b9
+SSH Key: JonWretlindKey.pem (in /home)
+ssh -i "JonWretlindKey.pem" ubuntu@ec2-54-176-19-100.us-west-1.compute.amazonaws.com
+
+Public IP: 54.176.19.100
+Public DNS: ec2-54-176-19-100.us-west-1.compute.amazonaws.com
+Private IP: 172.31.4.232
+Private DNS (ipV4) : ip-172-31-4-232.us-west-1.compute.internal
+
+-------------------------------------------------------
+Route 53 (DNS)
+
+Nameservers:
+ns-1048.awsdns-03.org.
+ns-141.awsdns-17.com.
+ns-741.awsdns-28.net.
+ns-1885.awsdns-43.co.uk.
+
+-------------------------------------------------------
+NGinX Web Server
+
+
