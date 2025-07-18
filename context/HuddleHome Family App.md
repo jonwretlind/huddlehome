@@ -43,11 +43,12 @@ Create a React Native application for Android that will do the following:
 
 1. Website URL: HuddleHome.casa  
 2. Use React Native for app  
-3. Use most recent Google Material Design Standards for app and icons  
-4. For website front-end, employ Tailwind libraries for style and UX  
-5. Use a modern, playful theme employing a glassmorphic sleek style for UI elements  
-6. For Backend, API and website is to be hosted on AWS EC2 instance  
-7. Download and employ up-to-date Javascript/Typescript libraries and React components as needed for app functionality
+3. Scalable multi-tenant app with database that can be secured and appropriate for multiple user groups and families' data.
+4. Use most recent Google Material Design Standards for app and icons  
+5. For website front-end, employ Tailwind libraries for style and UX  
+6. Use a modern, playful theme employing a glassmorphic sleek style for UI elements  
+7. For Backend, API and website is to be hosted on AWS EC2 instance  
+8. Download and employ up-to-date Javascript/Typescript libraries and React components as needed for app functionality
 
 ### Frontend Security
 
