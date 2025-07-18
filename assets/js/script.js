@@ -286,11 +286,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const backgroundImages = [
         '/huddlehome/assets/images/family_hero_background_optimized.jpg',
         '/huddlehome/assets/images/family2_hero_background_left_aligned_optimized.jpg',
-        '/huddlehome/assets/images/family3_hero_autumn_optimized.jpg'
+        '/huddlehome/assets/images/family3_hero_autumn_optimized.jpg',
+        '/huddlehome/assets/images/family_chores_1_optimized.jpg',
+        '/huddlehome/assets/images/family_chores_2_optimized.jpg',
+        '/huddlehome/assets/images/family_chores_3_optimized.jpg',
+        '/huddlehome/assets/images/family_chores_caucasian_optimized.jpg'
     ];
     
     let currentImageIndex = 0;
+    let shuffledImages = [];
     const slideInterval = 6000; // 6 seconds per image
+    
+    // Fisher-Yates shuffle algorithm
+    const shuffleArray = (array) => {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+    };
     
     // Preload all images
     const preloadImages = () => {
@@ -302,8 +317,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Change background image
     const changeBackground = () => {
-        currentImageIndex = (currentImageIndex + 1) % backgroundImages.length;
-        const nextImage = backgroundImages[currentImageIndex];
+        currentImageIndex = (currentImageIndex + 1) % shuffledImages.length;
+        const nextImage = shuffledImages[currentImageIndex];
         
         // Create a temporary image to ensure it's loaded
         const tempImg = new Image();
@@ -316,6 +331,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Start the slider
     const startBackgroundSlider = () => {
+        // Shuffle the images for randomization
+        shuffledImages = shuffleArray(backgroundImages);
         preloadImages();
         setInterval(changeBackground, slideInterval);
     };
