@@ -4610,13 +4610,143 @@ The script executes, but then re-focuses? Or maybe it isn't taking the focus sta
 
 _**Assistant**_
 
+You are correct: some browsers (especially Chrome and Safari) will re-focus the first link in a menu after your blur runs, due to their built-in accessibility logic. This can happen even after a delay.
 
+**The only bulletproof way to prevent this is to move focus to a non-interactive element (like the body or a hidden dummy element) after opening the menu.**
+
+---
+
+## **Definitive Solution: Move Focus to a Dummy Element**
+
+1. **Add a hidden dummy element just before the menu:**
+   ```html
+   <div id="menu-focus-guard" tabindex="-1" style="position:fixed;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;"></div>
+   ```
+
+2. **In your JS, after opening the menu, move focus to this dummy element:**
+   ```js
+   if (navLinks.classList.contains('active')) {
+     setTimeout(function() {
+       document.getElementById('menu-focus-guard').focus();
+       navLinks.querySelectorAll('a').forEach(function(link) {
+         link.blur();
+       });
+     }, 50);
+   }
+   ```
 
 ---
 
+## **How to Apply**
 
+1. **Add this just before your menu in your HTML:**
+   ```html
+   <div id="menu-focus-guard" tabindex="-1" style="position:fixed;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;"></div>
+   <div id="mobile-nav-links" class="nav-links"> ... </div>
+   ```
+
+2. **Update your JS as above.**
 
 ---
+
+## **Why This Works**
+
+- By moving focus to a hidden, non-interactive element, you prevent the browser from auto-focusing the first link.
+- This is a common accessibility pattern for custom menus and modals.
+
+---
+
+**I will apply this fix for you now.**
+
+---
+
+```diff
+      </nav>
+      <div id="menu-overlay" class="menu-overlay"></div>
++     <div id="menu-focus-guard" tabindex="-1" style="position:fixed;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;"></div>
+      <div id="mobile-nav-links" class="nav-links">
+          <a href="#features">Features</a>
+```
+
+```diff
+      if (navLinks.classList.contains('active')) {
+        setTimeout(function() {
+-         //menuToggle.focus();
+-         console.log('unfocusing links');
++         document.getElementById('menu-focus-guard').focus();
+          navLinks.querySelectorAll('a').forEach(function(link) {
+            link.blur();
+          });
+-       }, 500);
++       }, 50);
+      }
+    });
+```
+
+---
+
+Now, when you open the menu, focus will be moved to a hidden dummy element instead of the first link. This will prevent any nav link (including "How it Works") from being focused or highlighted by default, regardless of browser.
+
+Please refresh and test—this should finally resolve the persistent focus issue! If you need further tweaks, just let me know.
+
+---
+
+_**User**_
+
+Navigated to https://huddlehome.casa/
+[Violation] Forced reflow while executing JavaScript took 39ms
+7The resource <URL> was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+
+---
+
+_**Assistant**_
+
+Thank you for sharing these console messages. Here’s what they mean and what you should do:
+
+---
+
+## 1. **[Violation] Forced reflow while executing JavaScript took 39ms**
+
+- **What it means:**  
+  Your JavaScript (likely the menu open/close logic or the scroll handler) triggered a layout reflow that took a bit longer than Chrome likes (39ms). This is a performance warning, not an error.
+- **Should you worry?**  
+  - If your menu and navbar feel smooth and responsive, you can ignore this warning.
+  - If you notice jank or lag, consider optimizing your scroll handler (debounce/throttle, avoid layout reads/writes in rapid succession).
+
+---
+
+## 2. **The resource <URL> was preloaded using link preload but not used within a few seconds...**
+
+- **What it means:**  
+  You have `<link rel="preload" ...>` tags in your `<head>` for images or other resources, but those resources are not being used immediately after page load.
+- **Should you worry?**  
+  - This is just a browser hint that you might be preloading resources unnecessarily, which can affect performance.
+  - If you intend to use those images later (e.g., for a background slider or lazy loading), you can ignore this warning.
+  - If you don’t need to preload them, remove the `<link rel="preload" ...>` tags for unused resources.
+
+---
+
+## **Summary**
+
+- **Neither of these messages is a critical error.**
+- Your menu and navbar should work as expected.
+- If you want to further optimize performance, you can:
+  - Debounce/throttle scroll handlers.
+  - Only preload resources you use immediately.
+
+---
+
+**If you have any actual functional issues (menu, navbar, focus, etc.), let me know! Otherwise, you can safely ignore these console warnings.**
+
+---
+
+_**User**_
+
+ok but the focusing issue still persists
+
+---
+
+_**Assistant**_
 
 
 

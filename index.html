@@ -409,6 +409,13 @@ document.addEventListener('DOMContentLoaded', function() {
     overlay.classList.remove('active');
     menuToggle.classList.remove('active');
   });
+
+  // Prevent default focus on mousedown for nav links
+  navLinks.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+    });
+  });
 });
 </script>
 </body>
