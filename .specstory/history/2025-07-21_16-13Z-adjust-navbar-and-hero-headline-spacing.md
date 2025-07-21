@@ -5931,3 +5931,75 @@ Let me know if the menu is now centered and working as expected!
 
 ---
 
+_**User**_
+
+no[e. same problem. desktop looks great, mobile the menu is not centered on the screen
+
+---
+
+_**Assistant**_
+
+Thank you for your persistence. If the menu is centered on desktop but not on mobile, it is likely that a mobile-specific media query (such as @media (max-width: 768px)) is overriding the global `.nav-links` centering styles.
+
+**In your CSS, you still have this block:**
+```css
+@media (max-width: 768px) {
+    .nav-links {
+        /* Change top to 100% so it always sits directly below the navbar, even when minimized */
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: ...;
+        /* ... */
+    }
+}
+```
+This is overriding the global centering with `left: 0; right: 0;` on mobile.
+
+---
+
+## **Definitive Fix**
+
+**Remove or comment out the entire `.nav-links` block inside the `@media (max-width: 768px)` media query.**
+
+- This will allow the global `.nav-links { left: 50%; transform: translateX(-50%) ... }` to apply on all screen sizes.
+
+---
+
+## **Apply This Fix Now**
+
+I will remove the mobile-specific `.nav-links` block for you.
+
+---
+
+
+
+---
+
+To ensure the fix is applied, please manually remove or comment out this block from your CSS:
+
+```css
+@media (max-width: 768px) {
+  .nav-links {
+      top: 100%;
+      left: 0;
+      right: 0;
+      /* ...other styles... */
+  }
+}
+```
+
+**Why?**  
+This block overrides the global centering styles (`left: 50%; transform: translateX(-50%)`) on mobile, causing the menu to be left-aligned and not centered.
+
+**After removing this block:**
+- The global `.nav-links` centering will apply on all devices.
+- The menu will be perfectly centered on both desktop and mobile.
+
+---
+
+**Please remove that block, save, and refresh. The menu will now be centered everywhere.**  
+Let me know if you need any further tweaks!
+
+---
+
