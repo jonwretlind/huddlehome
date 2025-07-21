@@ -355,84 +355,33 @@
 
     <script src="assets/js/script.js"></script>
     <script>
-(function() {
-  var navbar = document.querySelector('.navbar');
+document.addEventListener('DOMContentLoaded', function() {
   var menuToggle = document.querySelector('.mobile-menu-toggle');
   var navLinks = document.getElementById('mobile-nav-links');
   var overlay = document.getElementById('menu-overlay');
-  var ticking = false;
-
+  console.log('menuToggle:', menuToggle);
   console.log('navLinks:', navLinks);
+  console.log('overlay:', overlay);
 
-  function setMenuTop() {
-    if (window.innerWidth <= 768 && navLinks && overlay && navbar) {
-      var height = navbar.offsetHeight;
-      navLinks.style.top = height + 'px';
-      overlay.style.top = height + 'px';
-    } else if (navLinks && overlay) {
-      navLinks.style.top = '';
-      overlay.style.top = '';
-    }
+  if (!menuToggle || !navLinks || !overlay) {
+    alert('Selector error: ' + JSON.stringify({ menuToggle, navLinks, overlay }));
+    return;
   }
 
-  function onScroll() {
-    if (window.innerWidth > 768) {
-      navbar.classList.remove('navbar-minimized');
-      return;
-    }
-    if (!ticking) {
-      window.requestAnimationFrame(function() {
-        if (window.scrollY > 30) {
-          navbar.classList.add('navbar-minimized');
-        } else {
-          navbar.classList.remove('navbar-minimized');
-        }
-        setMenuTop();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }
+  menuToggle.addEventListener('click', function() {
+    navLinks.classList.toggle('active');
+    overlay.classList.toggle('active');
+    menuToggle.classList.toggle('active');
+    console.log('navLinks classes:', navLinks.className);
+    console.log('overlay classes:', overlay.className);
+  });
 
-  function openMenu() {
-    navLinks.classList.add('active');
-    menuToggle.classList.add('active');
-    overlay.classList.add('active');
-    setMenuTop();
-  }
-
-  function closeMenu() {
+  overlay.addEventListener('click', function() {
     navLinks.classList.remove('active');
-    menuToggle.classList.remove('active');
     overlay.classList.remove('active');
-  }
-
-  if (menuToggle && navLinks && overlay) {
-    menuToggle.addEventListener('click', function() {
-      console.log('Hamburger clicked');
-      if (navLinks.classList.contains('active')) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-      console.log('navLinks classes:', navLinks.className);
-    });
-    overlay.addEventListener('click', closeMenu);
-    navLinks.querySelectorAll('a').forEach(function(link) {
-      link.addEventListener('click', closeMenu);
-    });
-  }
-
-  window.addEventListener('resize', function() {
-    setMenuTop();
-    onScroll();
+    menuToggle.classList.remove('active');
   });
-  window.addEventListener('scroll', onScroll, { passive: true });
-  document.addEventListener('DOMContentLoaded', function() {
-    setMenuTop();
-    onScroll();
-  });
-})();
+});
 </script>
 </body>
 </html> 

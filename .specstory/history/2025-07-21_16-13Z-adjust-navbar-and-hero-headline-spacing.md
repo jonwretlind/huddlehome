@@ -3824,3 +3824,94 @@ This will pinpoint the issue once and for all.
 
 ---
 
+_**User**_
+
+I added the style rule, but the #mobile-nav-links still does not have the .active class applied to it when the menu-overlay does. 
+
+---
+
+_**Assistant**_
+
+Thank you for your detailed troubleshooting and for confirming the CSS is now correct.  
+**If the overlay is getting the .active class but #mobile-nav-links is not, the issue is 100% in the JavaScript selector or event logic.**
+
+---
+
+## **What’s Happening**
+
+- Your script is successfully toggling `.active` on the overlay (`#menu-overlay`), but not on the menu (`#mobile-nav-links`).
+- This means either:
+  - The `navLinks` variable is not referencing the correct element.
+  - The event handler is not toggling `.active` on `navLinks` as expected.
+  - There is a race condition or a script order issue.
+
+---
+
+## **Definitive Fix: Minimal, Bulletproof JS**
+
+**Paste this script at the very end of your `<body>` (after all HTML):**
+
+```html
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var menuToggle = document.querySelector('.mobile-menu-toggle');
+  var navLinks = document.getElementById('mobile-nav-links');
+  var overlay = document.getElementById('menu-overlay');
+  console.log('menuToggle:', menuToggle);
+  console.log('navLinks:', navLinks);
+  console.log('overlay:', overlay);
+
+  if (!menuToggle || !navLinks || !overlay) {
+    alert('Selector error: ' + JSON.stringify({ menuToggle, navLinks, overlay }));
+    return;
+  }
+
+  menuToggle.addEventListener('click', function() {
+    navLinks.classList.toggle('active');
+    overlay.classList.toggle('active');
+    menuToggle.classList.toggle('active');
+    console.log('navLinks classes:', navLinks.className);
+    console.log('overlay classes:', overlay.className);
+  });
+
+  overlay.addEventListener('click', function() {
+    navLinks.classList.remove('active');
+    overlay.classList.remove('active');
+    menuToggle.classList.remove('active');
+  });
+});
+</script>
+```
+
+---
+
+## **What to Check:**
+
+1. **Open your browser’s console.**
+2. **Click the hamburger.**
+3. **Check the logs:**
+   - `navLinks classes:` should show `nav-links active` when open.
+   - `overlay classes:` should show `menu-overlay active` when open.
+
+**If `navLinks` is not getting `.active` but `overlay` is, and both are referenced in the same event, there is a DOM or selector issue.**
+
+---
+
+## **If This Still Does Not Work:**
+
+- Double-check that there is only one element with `id="mobile-nav-links"` and one with `id="menu-overlay"`.
+- Make sure the script is at the very end of the body, after all HTML.
+- Make sure there are no JavaScript errors in the console.
+
+---
+
+## **If You Want:**
+Paste your full HTML for the navbar, menu, overlay, and script section here and I will debug the exact issue for you.
+
+---
+
+**This script will definitively show if the class is being toggled. If it is not, the only possible cause is a selector or DOM issue.**  
+Let me know what you see in the console after trying this!
+
+---
+
