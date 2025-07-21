@@ -358,6 +358,32 @@ document.addEventListener('DOMContentLoaded', function() {
   var menuToggle = document.querySelector('.mobile-menu-toggle');
   var navLinks = document.getElementById('mobile-nav-links');
   var overlay = document.getElementById('menu-overlay');
+  var navbar = document.querySelector('.navbar');
+  var ticking = false;
+
+  // Navbar minimization on scroll
+  function onScroll() {
+    if (window.innerWidth > 768) {
+      navbar.classList.remove('navbar-minimized');
+      return;
+    }
+    if (!ticking) {
+      window.requestAnimationFrame(function() {
+        if (window.scrollY > 30) {
+          navbar.classList.add('navbar-minimized');
+        } else {
+          navbar.classList.remove('navbar-minimized');
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  // Menu logic
   console.log('menuToggle:', menuToggle);
   console.log('navLinks:', navLinks);
   console.log('overlay:', overlay);
