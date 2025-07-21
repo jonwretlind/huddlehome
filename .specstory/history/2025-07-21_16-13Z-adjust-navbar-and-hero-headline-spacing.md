@@ -4600,3 +4600,25 @@ Please refresh and test. If you still see the focus, let me know your browser an
 
 ---
 
+_**User**_
+
+ok in my script:
+
+The script executes, but then re-focuses? Or maybe it isn't taking the focus state off? It is still focued after the delay
+
+---
+
+_**Assistant**_
+
+
+
+---
+
+
+
+---
+
+
+
+---
+

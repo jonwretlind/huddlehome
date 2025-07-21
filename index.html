@@ -35,6 +35,7 @@
         </div>
     </nav>
     <div id="menu-overlay" class="menu-overlay"></div>
+    <div id="menu-focus-guard" tabindex="-1" style="position:fixed;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;"></div>
     <div id="mobile-nav-links" class="nav-links">
         <a href="#features">Features</a>
         <a href="#how-it-works">How It Works</a>
@@ -395,12 +396,11 @@ document.addEventListener('DOMContentLoaded', function() {
     menuToggle.classList.toggle('active');
     if (navLinks.classList.contains('active')) {
       setTimeout(function() {
-        //menuToggle.focus();
-        console.log('unfocusing links');
+        document.getElementById('menu-focus-guard').focus();
         navLinks.querySelectorAll('a').forEach(function(link) {
           link.blur();
         });
-      }, 500);
+      }, 50);
     }
   });
 
