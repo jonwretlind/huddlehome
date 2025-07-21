@@ -29,18 +29,18 @@
                 <span></span>
                 <span></span>
             </button>
-            <div class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#how-it-works">How It Works</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#testimonials">Testimonials</a>
-            </div>
             <div class="nav-cta">
                 <button class="btn-primary">Get Started</button>
             </div>
         </div>
     </nav>
-    <div class="menu-overlay"></div>
+    <div id="menu-overlay" class="menu-overlay"></div>
+    <div id="mobile-nav-links" class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#testimonials">Testimonials</a>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -358,9 +358,19 @@
 (function() {
   var navbar = document.querySelector('.navbar');
   var menuToggle = document.querySelector('.mobile-menu-toggle');
-  var navLinks = document.querySelector('.nav-links');
-  var overlay = document.querySelector('.menu-overlay');
+  var navLinks = document.getElementById('mobile-nav-links');
+  var overlay = document.getElementById('menu-overlay');
   var ticking = false;
+  function setMenuTop() {
+    if (window.innerWidth <= 768 && navLinks && overlay && navbar) {
+      var height = navbar.offsetHeight;
+      navLinks.style.top = height + 'px';
+      overlay.style.top = height + 'px';
+    } else if (navLinks && overlay) {
+      navLinks.style.top = '';
+      overlay.style.top = '';
+    }
+  }
   function onScroll() {
     if (window.innerWidth > 768) {
       navbar.classList.remove('navbar-minimized');
@@ -373,6 +383,7 @@
         } else {
           navbar.classList.remove('navbar-minimized');
         }
+        setMenuTop();
         ticking = false;
       });
       ticking = true;
@@ -388,6 +399,7 @@
       var isOpen = navLinks.classList.toggle('active');
       menuToggle.classList.toggle('active', isOpen);
       overlay.classList.toggle('active', isOpen);
+      setMenuTop();
     });
     // Close menu on nav link click
     navLinks.querySelectorAll('a').forEach(function(link) {
@@ -395,9 +407,15 @@
     });
     overlay.addEventListener('click', closeMenu);
   }
-  window.addEventListener('resize', onScroll);
+  window.addEventListener('resize', function() {
+    setMenuTop();
+    onScroll();
+  });
   window.addEventListener('scroll', onScroll, { passive: true });
-  document.addEventListener('DOMContentLoaded', onScroll);
+  document.addEventListener('DOMContentLoaded', function() {
+    setMenuTop();
+    onScroll();
+  });
 })();
 </script>
 </body>
