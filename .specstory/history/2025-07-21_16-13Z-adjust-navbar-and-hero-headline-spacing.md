@@ -5366,3 +5366,15 @@ Let me know if you want to adjust the menu’s width, position, or animation for
 
 ---
 
+_**User**_
+
+No. I literally want the same menu functionality on both desktop and mobile, including the shrinking scroll effect for desktop too. Just use the mobile menu for the entire menu system for all devices
+
+---
+
+_**Assistant**_
+
+
+
+---
+
