@@ -356,30 +356,69 @@
     <script src="assets/js/script.js"></script>
     <script>
 (function() {
+  var navbar = document.querySelector('.navbar');
   var menuToggle = document.querySelector('.mobile-menu-toggle');
   var navLinks = document.getElementById('mobile-nav-links');
   var overlay = document.getElementById('menu-overlay');
-  if (!menuToggle || !navLinks || !overlay) {
-    console.log('Selector error:', { menuToggle, navLinks, overlay });
-    return;
+  var ticking = false;
+
+  function setMenuTop() {
+    if (window.innerWidth <= 768 && navLinks && overlay && navbar) {
+      var height = navbar.offsetHeight;
+      navLinks.style.top = height + 'px';
+      overlay.style.top = height + 'px';
+    } else if (navLinks && overlay) {
+      navLinks.style.top = '';
+      overlay.style.top = '';
+    }
   }
-  menuToggle.addEventListener('click', function() {
-    navLinks.classList.toggle('active');
-    menuToggle.classList.toggle('active');
-    overlay.classList.toggle('active');
-    console.log('Toggled .active on menu:', navLinks.classList.contains('active'));
-  });
-  overlay.addEventListener('click', function() {
+
+  function onScroll() {
+    if (window.innerWidth > 768) {
+      navbar.classList.remove('navbar-minimized');
+      return;
+    }
+    if (!ticking) {
+      window.requestAnimationFrame(function() {
+        if (window.scrollY > 30) {
+          navbar.classList.add('navbar-minimized');
+        } else {
+          navbar.classList.remove('navbar-minimized');
+        }
+        setMenuTop();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  function closeMenu() {
     navLinks.classList.remove('active');
     menuToggle.classList.remove('active');
     overlay.classList.remove('active');
-  });
-  navLinks.querySelectorAll('a').forEach(function(link) {
-    link.addEventListener('click', function() {
-      navLinks.classList.remove('active');
-      menuToggle.classList.remove('active');
-      overlay.classList.remove('active');
+  }
+
+  if (menuToggle && navLinks && overlay) {
+    menuToggle.addEventListener('click', function() {
+      navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+      overlay.classList.toggle('active');
+      setMenuTop();
     });
+    overlay.addEventListener('click', closeMenu);
+    navLinks.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', closeMenu);
+    });
+  }
+
+  window.addEventListener('resize', function() {
+    setMenuTop();
+    onScroll();
+  });
+  window.addEventListener('scroll', onScroll, { passive: true });
+  document.addEventListener('DOMContentLoaded', function() {
+    setMenuTop();
+    onScroll();
   });
 })();
 </script>
