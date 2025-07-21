@@ -932,3 +932,85 @@ You can now open the menu on mobile and it will always be fully visible and usab
 
 ---
 
+_**User**_
+
+nope. the top of the opened menu flies completely off the screen. The top of it needs to snap to the height of the navbar, not the bottom of the screen.
+
+---
+
+_**Assistant**_
+
+Thank you for clarifying. The issue is that the menu is still using `transform: translateY(-100%)` for its closed state, which causes it to animate from above the viewport when opening. When you open the menu, it should always "snap" its top edge to the bottom of the navbar, never flying off the screen.
+
+**What’s happening:**
+- The menu is absolutely positioned with `top: 100%` inside `.nav-container`, but the `transform: translateY(-100%)` is shifting it up by its own height, causing it to fly off the top of the screen when opening.
+
+---
+
+## Solution
+
+- **Remove `transform: translateY(-100%)` from `.nav-links` and `.nav-links.active`.**
+- **Instead, use `display: none` for closed and `display: flex` for open, with a fade/slide animation if desired.**
+- This way, the menu always appears directly below the navbar, and its top edge is always flush with the bottom of the navbar.
+
+---
+
+**Let’s implement this now:**  
+1. Remove the `transform` and related transitions from `.nav-links` and `.nav-links.active`.
+2. Use `display: none` for closed, `display: flex` for open, and add a simple fade-in animation for smoothness.
+
+This will guarantee the menu always opens from the bottom of the navbar, never off the screen.
+
+---
+
+```diff
+    }
+    .nav-links {
+-     position: fixed;
+-     /* top will be set dynamically by JS */
++     position: absolute;
++     top: 100%;
+      left: 0;
+      right: 0;
+```
+
+```diff
+      padding: 1rem 0.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+-     transform: translateY(-100%);
++     display: none;
+      opacity: 0;
+      visibility: hidden;
+-     transition: all 0.3s ease;
+      z-index: 999;
+-     max-height: 90vh;
++     max-height: calc(100vh - var(--navbar-height, 52px));
+      overflow-y: auto;
++     animation: none;
+    }
+    .nav-links.active {
+-     transform: translateY(0);
++     display: flex;
+      opacity: 1;
+      visibility: visible;
++     animation: fadeInMenu 0.25s ease;
++   }
++   @keyframes fadeInMenu {
++     from { opacity: 0; }
++     to { opacity: 1; }
+    }
+    .mobile-menu-toggle {
+```
+
+---
+
+The menu will now always open flush with the bottom of the navbar—never flying off the top of the screen:
+
+- The menu uses `display: none` when closed and `display: flex` when open.
+- No more `transform: translateY(-100%)`—so the menu never shifts above the viewport.
+- The menu fades in smoothly and always starts at the bottom of the navbar, regardless of navbar size.
+
+Try opening the menu on mobile now. If you want a slide-down effect or further tweaks, just let me know!
+
+---
+

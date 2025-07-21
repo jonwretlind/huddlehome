@@ -927,6 +927,12 @@ p {
         display: flex;
     }
     
+    .nav-container {
+        position: relative;
+        width: 100%;
+        z-index: 1001;
+    }
+    
     .nav-links {
         /* Change top to 100% so it always sits directly below the navbar, even when minimized */
         top: 100%;
