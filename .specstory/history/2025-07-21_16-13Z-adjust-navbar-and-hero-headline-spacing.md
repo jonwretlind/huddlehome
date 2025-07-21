@@ -5210,7 +5210,159 @@ on desktop, the hanbuger button is not showing up at all. I want to use the same
 
 _**Assistant**_
 
+```diff
+  /* Mobile menu button */
+  .mobile-menu-toggle {
+-     display: none;
+-     flex-direction: column;
+-     cursor: pointer;
+-     padding: 8px;
+-     background: none;
+-     border: none;
+-     gap: 4px;
++     display: flex !important;
++     align-items: center;
++     justify-content: center;
++     height: 32px;
++     width: 32px;
++     padding: 0;
++     margin-left: 8px;
+  }
+  
+```
 
+---
+
+Now, the hamburger button (`.mobile-menu-toggle`) will always be visible on all screen sizes—desktop and mobile—using the same elements and behavior everywhere.
+
+- The menu and overlay will toggle as before.
+- No media queries or CSS will hide the hamburger on desktop.
+
+Please refresh and test on desktop.  
+If you want to adjust the hamburger’s size or position for desktop, let me know!
+
+---
+
+_**User**_
+
+well the menu shows up, but it should always use the same styling as the mobile menu.
+
+---
+
+_**Assistant**_
+
+```diff
+      transition: opacity 0.25s, transform 0.25s;
+    }
+-   /* --- Ensure menu is always visible when active --- */
+    .nav-links.active {
+      display: block !important;
+```
+
+```diff
+      border: none;
+      position: relative;
++     white-space: nowrap;
++     overflow: hidden;
++     text-overflow: ellipsis;
++   }
++   .nav-links a:focus {
++     outline: none;
++     background: none;
++     color: inherit;
++     box-shadow: none;
+    }
+    .nav-links a:not(:last-child)::after {
+```
+
+```diff
+      to { opacity: 1; transform: translateY(0); }
+    }
+- }
+- 
+- #mobile-nav-links {
+-   display: none;
+- }
+- .menu-overlay {
+-   display: none;
+-   position: fixed;
+-   top: 0; left: 0; right: 0; bottom: 0;
+-   background: rgba(30, 30, 30, 0.32);
+-   z-index: 9998;
+- }
+- #mobile-nav-links.active {
+-     display: block !important;
+-     background: #fff !important;
+-     z-index: 99999 !important;
+-     position: fixed !important;
+-     top: 100px !important; /* or whatever is below your navbar */
+-     left: 0 !important;
+-     right: 0 !important;
+-   }
+- .menu-overlay.active {
+-     display: block;
+-     z-index: 999 !important;
+- }
+- 
+- @media (max-width: 768px) {
+-   .nav-links a {
+-     white-space: nowrap;
+-     overflow: hidden;
+-     text-overflow: ellipsis;
+-   }
+-   .nav-links a:focus {
+-     outline: none;
+-     background: none;
+-     color: inherit;
+-     box-shadow: none;
+-   }
+    .mobile-menu-toggle {
+      position: relative;
+-     display: flex;
++     display: flex !important;
+      align-items: center;
+      justify-content: center;
+```
+
+```diff
+    }
+  }
++ 
++ #mobile-nav-links {
++   display: none;
++ }
++ .menu-overlay {
++   display: none;
++   position: fixed;
++   top: 0; left: 0; right: 0; bottom: 0;
++   background: rgba(30, 30, 30, 0.32);
++   z-index: 9998;
++ }
++ #mobile-nav-links.active {
++     display: block !important;
++     background: #fff !important;
++     z-index: 99999 !important;
++     position: fixed !important;
++     top: 100px !important; /* or whatever is below your navbar */
++     left: 0 !important;
++     right: 0 !important;
++   }
++ .menu-overlay.active {
++     display: block;
++     z-index: 999 !important;
++ }
+```
+
+---
+
+Now, the mobile menu styling and behavior will be used on all screen sizes:
+
+- The hamburger button is always visible.
+- The menu always appears as a vertical dropdown, styled the same on desktop and mobile.
+- No desktop-specific overrides or horizontal nav.
+
+Please refresh and test on desktop and mobile.  
+Let me know if you want to adjust the menu’s width, position, or animation for large screens!
 
 ---
 
