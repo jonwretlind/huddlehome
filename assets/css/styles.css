@@ -930,7 +930,7 @@ p {
     .nav-container {
         position: relative;
         width: 100%;
-        z-index: 1100;
+        z-index: auto;
     }
     
     .nav-links {
@@ -1382,7 +1382,7 @@ html {
   }
   .menu-overlay {
     display: none;
-    position: fixed;
+    position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(30, 30, 30, 0.32);
     z-index: 1090;
