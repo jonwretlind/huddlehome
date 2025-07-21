@@ -172,13 +172,6 @@ p {
     display: block;
 }
 
-/* Remove or comment out the following block to prevent desktop flex layout for .nav-links:
-.nav-links {
-    display: flex;
-    gap: 2rem;
-}
-*/
-
 .nav-links a {
     text-decoration: none;
     color: #333;
@@ -1338,7 +1331,7 @@ html {
 
 /* --- Mobile Nav Menu (now global) --- */
 .nav-links {
-  position: fixed;
+  position: absolute;
   left: 50%;
   transform: translateX(-50%) scale(0.98);
   width: calc(100vw - 2rem);
