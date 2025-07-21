@@ -1476,3 +1476,25 @@ html {
   right: 7px;
   transform: rotate(-45deg);
 }
+
+@media (max-width: 768px) {
+  .nav-cta {
+    display: none !important;
+  }
+  .nav-cta-mobile {
+    display: none !important;
+    text-align: center;
+    margin: 1.5rem auto 0 auto;
+  }
+  .nav-links.active + .nav-cta-mobile {
+    display: block !important;
+  }
+}
+@media (min-width: 769px) {
+  .nav-cta-mobile {
+    display: none !important;
+  }
+  .nav-cta {
+    display: block !important;
+  }
+}

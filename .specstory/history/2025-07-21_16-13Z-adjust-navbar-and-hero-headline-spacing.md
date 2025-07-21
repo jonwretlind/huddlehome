@@ -5676,6 +5676,49 @@ On mobile, I want the "Get Started" button below the menu
 
 _**Assistant**_
 
+```diff
+          <a href="#testimonials">Testimonials</a>
+      </div>
++     <div class="nav-cta nav-cta-mobile">
++         <button class="btn-primary">Get Started</button>
++     </div>
+  
+      <!-- Hero Section -->
+```
+
+---
+
+```diff
+          display: none;
+      }
++     
++     .nav-cta-mobile {
++         display: block !important;
++         text-align: center;
++         margin: 1.5rem auto 0 auto;
++     }
+      
+      .nav-logo h2 {
+```
+
+---
+
+Now, on mobile (≤768px), the "Get Started" button will appear below the menu, and the original button in the navbar will be hidden.  
+On desktop, the button will remain in the navbar and not appear below the menu.
+
+Please refresh and test on both mobile and desktop.  
+Let me know if you want any further tweaks!
+
+---
+
+_**User**_
+
+on mobile devices, when the mobile menu us active, I want the orange "Get Started" button at the end of the menu, below the other options. It is fine on desktop, so constrain this edit to the mobile only
+
+---
+
+_**Assistant**_
+
 
 
 ---
