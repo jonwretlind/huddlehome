@@ -941,6 +941,8 @@ p {
         visibility: hidden;
         transition: all 0.3s ease;
         z-index: 999;
+        max-height: calc(100vh - var(--navbar-height, 52px));
+        overflow-y: auto;
     }
     .navbar.navbar-minimized .nav-links {
         /* No change needed, top:100% will always follow navbar height */

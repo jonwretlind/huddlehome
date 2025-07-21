@@ -357,27 +357,20 @@
     <script>
 (function() {
   var navbar = document.querySelector('.navbar');
-  var ticking = false;
-  function onScroll() {
-    if (window.innerWidth > 768) {
-      navbar.classList.remove('navbar-minimized');
-      return;
-    }
-    if (!ticking) {
-      window.requestAnimationFrame(function() {
-        if (window.scrollY > 30) {
-          navbar.classList.add('navbar-minimized');
-        } else {
-          navbar.classList.remove('navbar-minimized');
-        }
-        ticking = false;
-      });
-      ticking = true;
+  var navLinks = document.querySelector('.nav-links');
+  var menuToggle = document.querySelector('.mobile-menu-toggle');
+  function setNavbarHeightVar() {
+    if (window.innerWidth <= 768 && navLinks && navbar) {
+      var height = navbar.offsetHeight;
+      navLinks.style.setProperty('--navbar-height', height + 'px');
+    } else if (navLinks) {
+      navLinks.style.removeProperty('--navbar-height');
     }
   }
-  window.addEventListener('resize', onScroll);
-  window.addEventListener('scroll', onScroll, { passive: true });
-  document.addEventListener('DOMContentLoaded', onScroll);
+  window.addEventListener('resize', setNavbarHeightVar);
+  window.addEventListener('scroll', setNavbarHeightVar);
+  document.addEventListener('DOMContentLoaded', setNavbarHeightVar);
+  if (menuToggle) menuToggle.addEventListener('click', setNavbarHeightVar);
 })();
 </script>
 </body>

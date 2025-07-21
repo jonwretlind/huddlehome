@@ -812,7 +812,20 @@ Thank you for the detailed feedback. Here’s how I’ll address both issues wit
 
 ---
 
+✅ **Done!**  
+- The hamburger "X" is now perfectly centered and symmetrical using absolute positioning.
+- The dropdown menu always sits flush to the bottom of the navbar, never off the page, regardless of navbar size or scroll state.
+- No more JavaScript is needed for menu positioning—it's all handled by CSS and the menu is always relative to the navbar.
 
+**How it works:**
+- `.nav-links` is now absolutely positioned inside `.nav-container` (which is `position: relative`), so it always appears directly below the navbar.
+- The hamburger button and its "X" use absolute positioning for perfect centering and symmetry.
+
+**Try it out on mobile:**  
+- The logo is large on load, the hamburger is small and the "X" is centered.
+- The menu always appears directly below the navbar, with no gap or overflow.
+
+If you want further tweaks or a different animation, just let me know!
 
 ---
 
