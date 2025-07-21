@@ -930,7 +930,7 @@ p {
     .nav-container {
         position: relative;
         width: 100%;
-        z-index: 1001;
+        z-index: 1100;
     }
     
     .nav-links {
@@ -947,7 +947,7 @@ p {
         display: none;
         opacity: 0;
         visibility: hidden;
-        z-index: 999;
+        z-index: 1100;
         max-height: calc(100vh - var(--navbar-height, 52px) - 1rem);
         overflow-y: auto;
         animation: none;
@@ -1385,7 +1385,7 @@ html {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(30, 30, 30, 0.32);
-    z-index: 998;
+    z-index: 1090;
     transition: opacity 0.3s;
     opacity: 0;
     pointer-events: none;
@@ -1409,7 +1409,7 @@ html {
     display: none;
     opacity: 0;
     visibility: hidden;
-    z-index: 1001;
+    z-index: 1100;
     max-height: calc(100vh - var(--navbar-height, 52px) - 1rem);
     overflow-y: auto;
     animation: none;
@@ -1422,7 +1422,7 @@ html {
     opacity: 1;
     visibility: visible;
     animation: fadeInMenu 0.25s ease;
-    z-index: 1001;
+    z-index: 1100;
   }
   .nav-links a {
     padding: 14px 18px;
