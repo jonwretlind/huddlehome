@@ -5757,3 +5757,49 @@ Let me know if you want any further tweaks!
 
 ---
 
+_**User**_
+
+on the mobile device, the mobile-nav-links isn't centered on the screen. It is off to the right and pushes the navbar toggler off the page to the right. It works fine on desktop.
+
+---
+
+_**Assistant**_
+
+This issue is caused by the removal of `left: 0; right: 0; left: 50%; transform: translateX(-50%)` from your `.nav-links` CSS. These properties are what center the menu horizontally on the screen.
+
+**To fix this:**
+- Restore the following to your `.nav-links` rule (globally, not just in a media query):  
+  ```css
+  left: 50%;
+  transform: translateX(-50%) scale(0.98);
+  width: calc(100vw - 2rem);
+  max-width: 480px;
+  right: auto;
+  ```
+
+- Remove any conflicting or duplicate left/right/transform properties for `.nav-links`.
+
+---
+
+## **Apply this fix:**
+
+```css
+.nav-links {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%) scale(0.98);
+  width: calc(100vw - 2rem);
+  max-width: 480px;
+  right: auto;
+  /* ...rest of your styles... */
+}
+```
+
+This will ensure the menu is always perfectly centered on mobile and desktop, and the hamburger button will not be pushed off the page.
+
+---
+
+**I will apply this fix for you
+
+---
+
