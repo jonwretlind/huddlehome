@@ -4527,7 +4527,76 @@ _**Assistant**_
 
 Thank you for confirming. This is a common browser behavior for accessibility: when a button opens a menu, focus is often automatically moved to the first focusable element inside the menu (the first link). This is especially true if the button is activated with the keyboard (Enter/Space), but some browsers do it even on click.
 
-**Blurring the
+**Blurring the links after opening the menu does not always work, because the browser may move focus after your blur runs.**
+
+---
+
+## **Definitive Solution: Prevent Focus on Menu Open**
+
+### 1. **Temporarily Move Focus Away After Opening**
+- After opening the menu, move focus back to the hamburger button (or to the body).
+
+### 2. **Use setTimeout to Ensure It Runs After Browser Focus**
+- Use a small timeout to run the blur after the browser's default focus behavior.
+
+---
+
+## **Apply This Fix in Your JS:**
+
+Replace your menu open logic with:
+
+```js
+menuToggle.addEventListener('click', function() {
+  navLinks.classList.toggle('active');
+  overlay.classList.toggle('active');
+  menuToggle.classList.toggle('active');
+  if (navLinks.classList.contains('active')) {
+    setTimeout(function() {
+      // Move focus back to the hamburger button
+      menuToggle.focus();
+      // And blur all links just in case
+      navLinks.querySelectorAll('a').forEach(function(link) {
+        link.blur();
+      });
+    }, 10);
+  }
+  console.log('navLinks classes:', navLinks.className);
+  console.log('overlay classes:', overlay.className);
+});
+```
+
+---
+
+**This will ensure that after the menu opens, focus is not left on any link, and the hamburger button regains focus.**
+
+---
+
+I will apply this change for you now.
+
+---
+
+```diff
+      overlay.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+-     // Remove focus from all links when menu opens
+      if (navLinks.classList.contains('active')) {
++       setTimeout(function() {
++         menuToggle.focus();
+          navLinks.querySelectorAll('a').forEach(function(link) {
+            link.blur();
+          });
++       }, 10);
+      }
+      console.log('navLinks classes:', navLinks.className);
+```
+
+---
+
+Now, when you open the menu, focus will be moved back to the hamburger button and all nav links will be blurred after the menu opens—even if the browser tries to focus the first link.
+
+This should prevent "How it works" (or any other link) from being focused or highlighted by default when the menu opens.
+
+Please refresh and test. If you still see the focus, let me know your browser and OS, and I’ll provide a browser-specific workaround!
 
 ---
 
