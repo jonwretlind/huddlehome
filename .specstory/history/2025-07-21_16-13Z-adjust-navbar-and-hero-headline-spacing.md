@@ -5667,3 +5667,16 @@ Let me know if you want any further tweaks!
 
 ---
 
+_**User**_
+
+ok now the menu looks good.
+On mobile, I want the "Get Started" button below the menu
+
+---
+
+_**Assistant**_
+
+
+
+---
+

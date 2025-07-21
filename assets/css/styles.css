@@ -998,6 +998,12 @@ p {
         display: none;
     }
     
+    .nav-cta-mobile {
+        display: block !important;
+        text-align: center;
+        margin: 1.5rem auto 0 auto;
+    }
+    
     .nav-logo h2 {
         font-size: 1.5rem;
     }
