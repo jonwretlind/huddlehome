@@ -392,6 +392,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  // Listen for navbar transition end to update menu position
+  navbar.addEventListener('transitionend', function(e) {
+    if (e.propertyName === 'padding' || e.propertyName === 'min-height') {
+      setMenuTop();
+    }
+  });
+
   window.addEventListener('resize', function() {
     setMenuTop();
     onScroll();

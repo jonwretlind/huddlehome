@@ -6242,3 +6242,16 @@ If the navbar still does not stay fixed, let me know if you see any JS errors or
 
 ---
 
+_**User**_
+
+ok. this works now.
+When I scroll back to top, and the navbar minimized style is removed, the active menu position needs to be reset to the top of the navbar. It now overlaps the menu when scrolled back to top and does not reposition the top of the menu when scrolled back to the top. It otherwise works fine
+
+---
+
+_**Assistant**_
+
+
+
+---
+
