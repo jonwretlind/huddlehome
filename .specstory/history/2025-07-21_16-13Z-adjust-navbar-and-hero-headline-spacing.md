@@ -177,11 +177,90 @@ Read file: assets/css/styles.css
 
 ---
 
+```diff
+      
+      .nav-links {
+-         position: fixed;
+-         top: 70px;
++         /* Change top to 100% so it always sits directly below the navbar, even when minimized */
++         top: 100%;
+          left: 0;
+          right: 0;
+```
 
+```diff
+          z-index: 999;
+      }
+-     
++     .navbar.navbar-minimized .nav-links {
++         /* No change needed, top:100% will always follow navbar height */
++     }
+      .nav-links.active {
+          transform: translateY(0);
+```
+
+```diff
+      margin-top: 3.5rem;
+    }
++   .nav-links {
++     /* Change top to 100% so it always sits directly below the navbar, even when minimized */
++     top: 100%;
++     left: 0;
++     right: 0;
++     background: var(--white);
++     flex-direction: column;
++     padding: 1rem;
++     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
++     transform: translateY(-100%);
++     opacity: 0;
++     visibility: hidden;
++     transition: all 0.3s ease;
++     z-index: 999;
++   }
++   .navbar.navbar-minimized .nav-links {
++     /* No change needed, top:100% will always follow navbar height */
++   }
++   .mobile-menu-toggle {
++     display: flex;
++     align-items: center;
++     justify-content: center;
++     height: 40px;
++     width: 40px;
++     padding: 0;
++     margin-left: 8px;
++   }
++   .mobile-menu-toggle span {
++     width: 26px;
++     height: 3px;
++     background: var(--orange-primary);
++     border-radius: 2px;
++     transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
++     display: block;
++     margin: 3px 0;
++   }
++   .mobile-menu-toggle.active span:nth-child(1) {
++     transform: rotate(45deg) translate(4px, 7px);
++   }
++   .mobile-menu-toggle.active span:nth-child(2) {
++     opacity: 0;
++   }
++   .mobile-menu-toggle.active span:nth-child(3) {
++     transform: rotate(-45deg) translate(5px, -7px);
++   }
+  }
+```
 
 ---
 
+The following improvements have been made:
 
+1. **No More Gap:**  
+   The dropdown menu (`.nav-links`) now sits directly below the navbar, even when minimized, by using `top: 100%` instead of a fixed pixel value. This ensures there is no gap regardless of the navbar's height.
+
+2. **Aligned Mobile Menu "X":**  
+   The mobile menu toggle button is now perfectly centered vertically, and the "X" (active state) is visually centered and balanced for a more polished look.
+
+You can refresh your site on mobile to see the fixes. If you need further tweaks (like animation speed or spacing), just let me know!
 
 ---
 
