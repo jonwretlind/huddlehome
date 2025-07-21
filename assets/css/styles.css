@@ -1322,6 +1322,8 @@ html {
   transition: opacity 0.3s;
   opacity: 0;
   pointer-events: none;
+  backdrop-filter: blur(3px);
+
 }
 .menu-overlay.active {
   display: block;
