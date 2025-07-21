@@ -1428,11 +1428,6 @@ html {
 #mobile-nav-links {
   display: none;
 }
-#mobile-nav-links.active {
-  display: block !important;
-  background: #fff;
-  z-index: 9999;
-}
 .menu-overlay {
   display: none;
   position: fixed;
@@ -1440,6 +1435,16 @@ html {
   background: rgba(30, 30, 30, 0.32);
   z-index: 9998;
 }
+#mobile-nav-links.active {
+    display: block !important;
+    background: #fff !important;
+    z-index: 99999 !important;
+    position: fixed !important;
+    top: 100px !important; /* or whatever is below your navbar */
+    left: 0 !important;
+    right: 0 !important;
+  }
 .menu-overlay.active {
-  display: block;
+    display: block;
+    z-index: 9999 !important;
 }
