@@ -6003,3 +6003,149 @@ Let me know if you need any further tweaks!
 
 ---
 
+_**User**_
+
+on mobile the navbar will not stay fixed when the menu is active
+
+---
+
+_**Assistant**_
+
+The issue is that you changed `.nav-links` from `position: fixed;` to `position: absolute;`.  
+- With `position: absolute;`, the menu is positioned relative to its nearest positioned ancestor, not the viewport.  
+- This causes the navbar to scroll away when the menu is open, because the menu is not fixed to the viewport and does not "cover" the page.
+
+---
+
+## **How to Fix**
+
+**Change `.nav-links` back to `position: fixed;`**  
+This will ensure:
+- The menu is always fixed to the viewport, regardless of scroll.
+- The navbar remains fixed at the top, and the menu appears below it.
+
+**Your CSS should be:**
+```css
+.nav-links {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%) scale(0.98);
+  width: calc(100vw - 2rem);
+  max-width: 480px;
+  right: auto;
+  /* ...rest of your styles... */
+}
+```
+
+---
+
+**I will apply this fix for you now.**
+
+---
+
+```diff
+  /* --- Mobile Nav Menu (now global) --- */
+  .nav-links {
+-   position: absolute;
++   position: fixed;
+    left: 50%;
+    transform: translateX(-50%) scale(0.98);
+```
+
+---
+
+Your menu is now set to `position: fixed;` again, which will ensure:
+
+- The menu is always fixed to the viewport, regardless of scroll.
+- The navbar remains fixed at the top when the menu is open.
+- The menu appears directly below the navbar, centered, on all devices.
+
+Please refresh and test on mobile.  
+Let me know if you need any further tweaks!
+
+---
+
+_**User**_
+
+yes but, when the nav-links are fixed, the navbar close icon is off the screen. And this is somehow causing the menu to not be centered.
+
+---
+
+_**Assistant**_
+
+Thank you for the details. The issue is likely caused by the stacking and layout context:
+
+- When `.nav-links` is `position: fixed`, it is fixed relative to the viewport, but if the hamburger button (navbar close icon) is inside a container that is not also fixed, it can be pushed off-screen or not align with the menu.
+- If the menu is not centered, it may be due to conflicting widths, transforms, or a parent container with unexpected positioning.
+
+---
+
+## **Definitive Fix:**
+
+### 1. **Ensure Both Navbar and Menu Are Fixed and Full-Width**
+
+- The navbar (`.navbar`) should be `position: fixed; width: 100%; left: 0; right: 0;`.
+- The hamburger button should be inside the fixed navbar, not inside the menu.
+- The menu (`.nav-links`) should be `position: fixed; left: 50%; transform: translateX(-50%) ...; width: calc(100vw - 2rem); max-width: 480px;`.
+
+### 2. **No Parent Should Have `overflow: hidden` or `position: relative` That Affects Fixed Children**
+
+- Make sure `.nav-container` or any parent does not have `overflow: hidden` or `position: relative` that could affect stacking.
+
+### 3. **Hamburger Button Placement**
+
+- The hamburger button should be in the navbar, not in the menu.
+- The close "X" is just the hamburger in its `.active` state.
+
+### 4. **Z-Index**
+
+- Ensure `.navbar` has a higher z-index than `.nav-links`, and `.nav-links` has a higher z-index than `.menu-overlay`.
+
+---
+
+## **CSS Example for Reference:**
+
+```css
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1200;
+}
+
+.mobile-menu-toggle {
+  position: relative;
+  z-index: 1300; /* higher than menu */
+}
+
+.nav-links {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%) scale(0.98);
+  width: calc(100vw - 2rem);
+  max-width: 480px;
+  right: auto;
+  z-index: 1100;
+  /* ...rest of your styles... */
+}
+```
+
+---
+
+## **Action:**
+
+- Double-check that the hamburger button is inside the `.navbar` and not inside `.nav-links`.
+- Make sure `.navbar` is `position: fixed; width: 100%; left: 0; right: 0;`.
+- Make sure `.nav-links` is `position: fixed; left: 50%; transform: translateX(-50%) ...; width: calc(100vw - 2rem); max-width: 480px;`.
+- Ensure no parent containers have `position: relative` or `overflow: hidden` that could affect fixed children.
+
+---
+
+**If you want, paste your current HTML for the navbar and menu, and I’ll give you the exact markup and CSS to guarantee correct centering and stacking.**
+
+Would you like a full, minimal working example?
+
+---
+

@@ -1331,7 +1331,7 @@ html {
 
 /* --- Mobile Nav Menu (now global) --- */
 .nav-links {
-  position: absolute;
+  position: fixed;
   left: 50%;
   transform: translateX(-50%) scale(0.98);
   width: calc(100vw - 2rem);
