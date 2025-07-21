@@ -1362,7 +1362,7 @@ html {
   transition: opacity 0.25s, transform 0.25s;
 }
 .nav-links.active {
-  display: block !important;
+  display: flex !important;
   opacity: 1 !important;
   visibility: visible !important;
 }

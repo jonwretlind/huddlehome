@@ -5608,11 +5608,62 @@ And make sure you call `setMenuTop()`:
 
 ---
 
+```diff
+      }
+    }
+-   window.addEventListener('scroll', onScroll, { passive: true });
+-   window.addEventListener('resize', onScroll);
++ 
++   function setMenuTop() {
++     if (navLinks && overlay && navbar) {
++       var height = navbar.offsetHeight;
++       navLinks.style.top = height + 'px';
++       overlay.style.top = height + 'px';
++     }
++   }
++ 
++   window.addEventListener('resize', function() {
++     setMenuTop();
++     onScroll();
++   });
++   window.addEventListener('scroll', function() {
++     onScroll();
++     setMenuTop();
++   }, { passive: true });
++   document.addEventListener('DOMContentLoaded', function() {
++     setMenuTop();
+      onScroll();
++   });
+  
+  
+```
 
+```diff
+      overlay.classList.toggle('active');
+      menuToggle.classList.toggle('active');
++     setMenuTop();
+      if (navLinks.classList.contains('active')) {
+        setTimeout(function() {
+```
+
+```diff
+        }, 150);
+      }
++     console.log('navLinks classes:', navLinks.className);
++     console.log('overlay classes:', overlay.className);
+    });
+  
+```
 
 ---
 
+Now, the menu will always open directly below the navbar on all screen sizes—desktop and mobile—regardless of scroll or resize.
 
+- The JS always sets the menu and overlay `top` to the navbar’s height.
+- The menu will never be covered by the navbar.
+
+Please refresh and test on desktop and mobile.  
+Let me know if you want any further tweaks!
 
 ---
 
