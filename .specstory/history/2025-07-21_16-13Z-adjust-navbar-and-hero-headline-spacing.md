@@ -4348,7 +4348,18 @@ _**Assistant**_
 
 ---
 
+Here's what is now ensured:
 
+1. **All nav links (including "How it Works") are forced to a single line** using `white-space: nowrap; overflow: hidden; text-overflow: ellipsis;`.
+2. **No nav item is focused by default** and focus styles are removed (`outline: none; background: none; color: inherit; box-shadow: none;`).
+3. **The hamburger "X" is perfectly centered** by refining the absolute positioning and transform of the bars.
+
+Please refresh and test:
+- All menu items should be on one line, even on small screens.
+- No menu item should appear focused when the menu opens.
+- The "X" should be visually centered.
+
+If you want a specific visual tweak for the "X" or want to allow wrapping on very small screens, let me know!
 
 ---
 
