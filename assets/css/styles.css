@@ -172,10 +172,12 @@ p {
     display: block;
 }
 
+/* Remove or comment out the following block to prevent desktop flex layout for .nav-links:
 .nav-links {
     display: flex;
     gap: 2rem;
 }
+*/
 
 .nav-links a {
     text-decoration: none;
