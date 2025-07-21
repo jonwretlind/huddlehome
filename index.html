@@ -379,9 +379,27 @@ document.addEventListener('DOMContentLoaded', function() {
       ticking = true;
     }
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  onScroll();
+
+  function setMenuTop() {
+    if (navLinks && overlay && navbar) {
+      var height = navbar.offsetHeight;
+      navLinks.style.top = height + 'px';
+      overlay.style.top = height + 'px';
+    }
+  }
+
+  window.addEventListener('resize', function() {
+    setMenuTop();
+    onScroll();
+  });
+  window.addEventListener('scroll', function() {
+    onScroll();
+    setMenuTop();
+  }, { passive: true });
+  document.addEventListener('DOMContentLoaded', function() {
+    setMenuTop();
+    onScroll();
+  });
 
 
   if (!menuToggle || !navLinks || !overlay) {
@@ -393,12 +411,15 @@ document.addEventListener('DOMContentLoaded', function() {
     navLinks.classList.toggle('active');
     overlay.classList.toggle('active');
     menuToggle.classList.toggle('active');
+    setMenuTop();
     if (navLinks.classList.contains('active')) {
       setTimeout(function() {
         var firstLink = navLinks.querySelector('a');
         if (firstLink) firstLink.focus();
       }, 150);
     }
+    console.log('navLinks classes:', navLinks.className);
+    console.log('overlay classes:', overlay.className);
   });
 
   overlay.addEventListener('click', function() {
