@@ -1334,7 +1334,7 @@ html {
   z-index: 1100 !important;
   position: fixed;
   width: calc(100vw - 2rem);
-  max-width: inherit;
+  max-width: 480px;
   /* top will be set by JS to match navbar height */
   background: linear-gradient(135deg, rgba(255,246,240,0.85) 0%, rgba(232,249,250,0.85) 100%);
   border-radius: 18px 18px 24px 24px;
@@ -1351,6 +1351,13 @@ html {
   backdrop-filter: blur(16px) saturate(160%);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
   transition: opacity 0.25s, transform 0.25s;
+  transform-origin: center;
+  transform: translateX(calc(50% - 2rem)) scale(0.98);
+}
+@media (max-width: 768px) {
+  .nav-links {
+    transform: unset;
+  }
 }
 .nav-links.active {
   display: flex !important;

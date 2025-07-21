@@ -6251,7 +6251,34 @@ When I scroll back to top, and the navbar minimized style is removed, the active
 
 _**Assistant**_
 
+I see the issue! When the navbar transitions from minimized back to normal height, the menu position isn't being updated quickly enough. The `setMenuTop()` function needs to be called after the navbar transition completes, not just during the scroll event.
 
+Let me fix this by adding a transition end listener to the navbar:
+
+
+---
+
+```diff
+      }
+    }
++ 
++   // Listen for navbar transition end to update menu position
++   navbar.addEventListener('transitionend', function(e) {
++     if (e.propertyName === 'padding' || e.propertyName === 'min-height') {
++       setMenuTop();
++     }
++   });
+  
+    window.addEventListener('resize', function() {
+```
+
+---
+
+Perfect! Now the menu position will be updated immediately after the navbar transition completes, whether it's transitioning from minimized to normal height or vice versa. 
+
+The `transitionend` event listener specifically watches for changes to the `padding` and `min-height` properties (which are the properties that change during the navbar minimization), and calls `setMenuTop()` to reposition the menu accordingly.
+
+This should fix the issue where the menu overlaps the navbar when scrolling back to the top and the navbar returns to its normal height.
 
 ---
 
