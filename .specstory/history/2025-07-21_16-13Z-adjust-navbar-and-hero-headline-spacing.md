@@ -3915,3 +3915,45 @@ Let me know what you see in the console after trying this!
 
 ---
 
+_**User**_
+
+I pasted the code and the menu does not work at all
+
+---
+
+_**Assistant**_
+
+Thank you for your patience and for pasting the exact code.  
+Let’s do a **step-by-step, minimal, bulletproof fix** to guarantee the menu works.
+
+---
+
+## **1. Minimal Working Example**
+
+**Please copy and paste this exact code at the end of your `<body>`:**
+
+```html
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var menuToggle = document.querySelector('.mobile-menu-toggle');
+  var navLinks = document.getElementById('mobile-nav-links');
+  var overlay = document.getElementById('menu-overlay');
+  console.log('menuToggle:', menuToggle);
+  console.log('navLinks:', navLinks);
+  console.log('overlay:', overlay);
+
+  if (!menuToggle || !navLinks || !overlay) {
+    alert('Selector error: ' + JSON.stringify({ menuToggle, navLinks, overlay }));
+    return;
+  }
+
+  menuToggle.addEventListener('click', function() {
+    navLinks.classList.toggle('active');
+    overlay.classList.toggle('active');
+    menuToggle.classList.toggle('active');
+    console.log('navLinks classes:', navLinks.className);
+    console.log('overlay classes:', overlay.className);
+ 
+
+---
+

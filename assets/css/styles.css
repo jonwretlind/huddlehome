@@ -1425,10 +1425,21 @@ html {
   }
 }
 
+#mobile-nav-links {
+  display: none;
+}
 #mobile-nav-links.active {
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    background: #fff !important;
-    z-index: 9999 !important;
-  }
+  display: block !important;
+  background: #fff;
+  z-index: 9999;
+}
+.menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(30, 30, 30, 0.32);
+  z-index: 9998;
+}
+.menu-overlay.active {
+  display: block;
+}
