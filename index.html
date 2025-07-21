@@ -362,6 +362,8 @@
   var overlay = document.getElementById('menu-overlay');
   var ticking = false;
 
+  console.log('navLinks:', navLinks);
+
   function setMenuTop() {
     if (window.innerWidth <= 768 && navLinks && overlay && navbar) {
       var height = navbar.offsetHeight;
@@ -407,11 +409,13 @@
 
   if (menuToggle && navLinks && overlay) {
     menuToggle.addEventListener('click', function() {
+      console.log('Hamburger clicked');
       if (navLinks.classList.contains('active')) {
         closeMenu();
       } else {
         openMenu();
       }
+      console.log('navLinks classes:', navLinks.className);
     });
     overlay.addEventListener('click', closeMenu);
     navLinks.querySelectorAll('a').forEach(function(link) {
