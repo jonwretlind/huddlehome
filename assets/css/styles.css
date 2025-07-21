@@ -1248,3 +1248,35 @@ html {
         font-size: 16px;
     }
 }
+
+/* --- Navbar Minimization Styles (Mobile) --- */
+@media (max-width: 768px) {
+  .navbar {
+    transition: padding 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1);
+    padding: 1rem 0;
+  }
+  .nav-logo .logo-image {
+    transition: width 0.3s cubic-bezier(0.4,0,0.2,1);
+    width: 180px;
+  }
+  .navbar.navbar-minimized {
+    padding: 0.3rem 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .navbar.navbar-minimized .nav-logo .logo-image {
+    width: 120px;
+  }
+  .navbar.navbar-minimized .nav-logo h2 {
+    font-size: 1.1rem;
+  }
+  .navbar.navbar-minimized .nav-logo {
+    transition: font-size 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  /* Add extra top margin to hero headline to prevent overlap */
+  .hero-title {
+    margin-top: 2.5rem;
+  }
+  .navbar.navbar-minimized + .hero .hero-title {
+    margin-top: 3.5rem;
+  }
+}

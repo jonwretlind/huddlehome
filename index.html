@@ -354,5 +354,32 @@
     </footer>
 
     <script src="assets/js/script.js"></script>
+    <script>
+(function() {
+  var navbar = document.querySelector('.navbar');
+  var lastScrollY = window.scrollY;
+  var ticking = false;
+  function onScroll() {
+    if (window.innerWidth > 768) {
+      navbar.classList.remove('navbar-minimized');
+      return;
+    }
+    if (!ticking) {
+      window.requestAnimationFrame(function() {
+        if (window.scrollY > 30) {
+          navbar.classList.add('navbar-minimized');
+        } else {
+          navbar.classList.remove('navbar-minimized');
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  document.addEventListener('DOMContentLoaded', onScroll);
+})();
+</script>
 </body>
 </html> 
