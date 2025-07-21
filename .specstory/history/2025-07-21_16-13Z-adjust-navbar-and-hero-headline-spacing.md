@@ -6191,11 +6191,54 @@ I will update your CSS to ensure the navbar is always on top, and double-check t
 
 ---
 
+```diff
+  /* --- Navbar Minimization --- */
+  .navbar {
+-   z-index: 1200;
++   z-index: 1200 !important;
+    position: fixed;
+    top: 0;
+```
 
+```diff
+  /* --- Menu Overlay --- */
+  .menu-overlay {
++   z-index: 1050 !important;
+    display: none;
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    background: rgba(30, 30, 30, 0.32);
+-   z-index: 1050;
+    transition: opacity 0.3s;
+    opacity: 0;
+```
+
+```diff
+  /* --- Mobile Nav Menu (now global) --- */
+  .nav-links {
++   z-index: 1100 !important;
+    position: fixed;
+    left: 50%;
+```
+
+```diff
+    opacity: 0;
+    visibility: hidden;
+-   z-index: 1100;
+    max-height: calc(100vh - var(--navbar-height, 52px) - 1rem);
+    overflow-y: auto;
+```
 
 ---
 
+Now, the navbar will always stay fixed and visible above the menu and overlay, even when the menu is open and active, on all devices.
 
+- `.navbar` is `z-index: 1200 !important;`
+- `.nav-links` is `z-index: 1100 !important;`
+- `.menu-overlay` is `z-index: 1050 !important;`
+
+Please refresh and test on mobile and desktop.  
+If the navbar still does not stay fixed, let me know if you see any JS errors or if any other element is interfering!
 
 ---
 
