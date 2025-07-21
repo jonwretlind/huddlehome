@@ -383,10 +383,6 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('resize', onScroll);
   onScroll();
 
-  // Menu logic
-  console.log('menuToggle:', menuToggle);
-  console.log('navLinks:', navLinks);
-  console.log('overlay:', overlay);
 
   if (!menuToggle || !navLinks || !overlay) {
     alert('Selector error: ' + JSON.stringify({ menuToggle, navLinks, overlay }));
@@ -399,14 +395,12 @@ document.addEventListener('DOMContentLoaded', function() {
     menuToggle.classList.toggle('active');
     if (navLinks.classList.contains('active')) {
       setTimeout(function() {
-        menuToggle.focus();
+        //menuToggle.focus();
         navLinks.querySelectorAll('a').forEach(function(link) {
           link.blur();
         });
       }, 500);
     }
-    console.log('navLinks classes:', navLinks.className);
-    console.log('overlay classes:', overlay.className);
   });
 
   overlay.addEventListener('click', function() {
