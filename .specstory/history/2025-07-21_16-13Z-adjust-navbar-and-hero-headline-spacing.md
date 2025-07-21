@@ -4494,11 +4494,40 @@ This will ensure that no link is focused by default when the menu opens.
 
 ---
 
-
+```diff
+      overlay.classList.toggle('active');
+      menuToggle.classList.toggle('active');
++     // Remove focus from all links when menu opens
++     if (navLinks.classList.contains('active')) {
++       navLinks.querySelectorAll('a').forEach(function(link) {
++         link.blur();
++       });
++     }
+      console.log('navLinks classes:', navLinks.className);
+      console.log('overlay classes:', overlay.className);
+```
 
 ---
 
+Now, when you open the menu, all nav links will be blurred and none will be focused by default.  
+A link will only be focused if the user explicitly tabs to it or clicks it.
 
+This will prevent "How it works" (or any other link) from being highlighted when the menu opens.  
+Please refresh and test—let me know if this resolves the issue!
+
+---
+
+_**User**_
+
+It is still focusing when I click the open hambuger button and activate the menu.
+
+---
+
+_**Assistant**_
+
+Thank you for confirming. This is a common browser behavior for accessibility: when a button opens a menu, focus is often automatically moved to the first focusable element inside the menu (the first link). This is especially true if the button is activated with the keyboard (Enter/Space), but some browsers do it even on click.
+
+**Blurring the
 
 ---
 
