@@ -5374,6 +5374,114 @@ No. I literally want the same menu functionality on both desktop and mobile, inc
 
 _**Assistant**_
 
+Thank you for clarifying! Here’s exactly what you want:
+
+- The hamburger button is always visible, on all screen sizes.
+- The menu is always a vertical dropdown, toggled by the hamburger, on all screen sizes.
+- The overlay, animation, and glassmorphism are always present.
+- The navbar shrinking on scroll works on all screen sizes (not just mobile).
+
+---
+
+## **How to Achieve This**
+
+1. **Remove all media queries for menu/nav/hamburger.**
+2. **Apply the mobile menu CSS globally (no @media).**
+3. **Apply the navbar shrinking logic on all screen sizes.**
+4. **Ensure the hamburger and menu JS works for all devices.**
+
+---
+
+## **I will:**
+- Remove all `@media (max-width: 768px)` wrappers for menu/nav/hamburger styles.
+- Make sure `.navbar.navbar-minimized` and related rules are global.
+- Ensure the JS scroll handler always applies the minimized class, regardless of screen width.
+
+---
+
+**Let’s apply these changes now.**
+
+---
+
+```diff
+  
+  /* --- Navbar Minimization Styles (Mobile) --- */
+- @media (max-width: 768px) {
+  /* --- Navbar Minimization --- */
+  .navbar {
+```
+
+```diff
+  }
+  
+-   /* --- Mobile Nav Menu --- */
++ /* --- Mobile Nav Menu (now global) --- */
+  .nav-links {
+    position: fixed;
+```
+
+```diff
+    transform: scale(1.04);
+  }
+-   .nav-links a:nth-child(1) { animation-delay: 0.05s; }
++ .nav-links a:nth-child(1) { animation-delay: 0s; }
+  .nav-links a:nth-child(2) { animation-delay: 0.12s; }
+  .nav-links a:nth-child(3) { animation-delay: 0.19s; }
+```
+
+```diff
+    right: 7px;
+    transform: rotate(-45deg);
+-   }
+- }
+- 
+- #mobile-nav-links {
+-   display: none;
+- }
+- .menu-overlay {
+-   display: none;
+-   position: fixed;
+-   top: 0; left: 0; right: 0; bottom: 0;
+-   background: rgba(30, 30, 30, 0.32);
+-   z-index: 9998;
+- }
+- #mobile-nav-links.active {
+-     display: block !important;
+-     background: #fff !important;
+-     z-index: 99999 !important;
+-     position: fixed !important;
+-     top: 100px !important; /* or whatever is below your navbar */
+-     left: 0 !important;
+-     right: 0 !important;
+-   }
+- .menu-overlay.active {
+-     display: block;
+-     z-index: 999 !important;
+  }
+```
+
+---
+
+Now, the mobile menu system (including the hamburger, overlay, glassmorphism, and navbar shrinking) is used for all devices and screen sizes—desktop and mobile.
+
+- The hamburger is always visible.
+- The menu is always a vertical dropdown, toggled by the hamburger.
+- The overlay and animation are always present.
+- The navbar shrinking on scroll works everywhere.
+
+Please refresh and test on both desktop and mobile.  
+Let me know if you want any further tweaks!
+
+---
+
+_**User**_
+
+now there is a weird outline around the hamburger button., and the mobile version doesn't work at all anymore
+
+---
+
+_**Assistant**_
+
 
 
 ---

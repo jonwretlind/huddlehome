@@ -1431,6 +1431,14 @@ html {
   width: 32px;
   padding: 0;
   margin-left: 8px;
+  outline: none;
+  box-shadow: none;
+  border: none;
+  background: none;
+}
+.mobile-menu-toggle:focus {
+  outline: none;
+  box-shadow: none;
 }
 .mobile-menu-toggle span {
   position: absolute;
