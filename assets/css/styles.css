@@ -938,17 +938,20 @@ p {
         top: 100%;
         left: 0;
         right: 0;
-        background: var(--white);
+        background: linear-gradient(135deg, #fff6f0 0%, #e8f9fa 100%);
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(37, 206, 209, 0.10), 0 2px 8px rgba(255, 107, 53, 0.08);
         flex-direction: column;
-        padding: 1rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        transform: translateY(-100%);
+        padding: 1.2rem 0.7rem 1.2rem 0.7rem;
+        margin: 0.5rem 1rem 0 1rem;
+        display: none;
         opacity: 0;
         visibility: hidden;
-        transition: all 0.3s ease;
         z-index: 999;
-        max-height: calc(100vh - var(--navbar-height, 52px));
+        max-height: calc(100vh - var(--navbar-height, 52px) - 1rem);
         overflow-y: auto;
+        animation: none;
+        border: 2px solid var(--orange-primary);
     }
     .navbar.navbar-minimized .nav-links {
         /* No change needed, top:100% will always follow navbar height */
@@ -960,11 +963,40 @@ p {
     }
     
     .nav-links a {
-        padding: 12px 16px;
-        border-radius: var(--border-radius);
+        padding: 14px 18px;
+        border-radius: 12px;
         margin: 4px 0;
-        text-align: center;
-        font-size: 1.1rem;
+        text-align: left;
+        font-size: 1.15rem;
+        color: #333;
+        font-weight: 600;
+        background: transparent;
+        transition: background 0.2s, color 0.2s, transform 0.2s;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: menuItemIn 0.4s cubic-bezier(0.4,0,0.2,1) forwards;
+    }
+    .nav-links.active a {
+        opacity: 1;
+        transform: translateY(0);
+        animation: menuItemIn 0.4s cubic-bezier(0.4,0,0.2,1) forwards;
+    }
+    .nav-links a:hover, .nav-links a:focus {
+        background: var(--orange-primary);
+        color: var(--white);
+        transform: scale(1.04);
+    }
+    .nav-links a:nth-child(1) { animation-delay: 0.05s; }
+    .nav-links a:nth-child(2) { animation-delay: 0.12s; }
+    .nav-links a:nth-child(3) { animation-delay: 0.19s; }
+    .nav-links a:nth-child(4) { animation-delay: 0.26s; }
+    @keyframes fadeInMenu {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    @keyframes menuItemIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
     
     .nav-cta {
