@@ -1409,7 +1409,7 @@ html {
     display: none;
     opacity: 0;
     visibility: hidden;
-    z-index: 999;
+    z-index: 1001;
     max-height: calc(100vh - var(--navbar-height, 52px) - 1rem);
     overflow-y: auto;
     animation: none;
@@ -1418,10 +1418,11 @@ html {
     -webkit-backdrop-filter: blur(16px) saturate(160%);
   }
   .nav-links.active {
-    display: flex;
+    display: flex !important;
     opacity: 1;
     visibility: visible;
     animation: fadeInMenu 0.25s ease;
+    z-index: 1001;
   }
   .nav-links a {
     padding: 14px 18px;
