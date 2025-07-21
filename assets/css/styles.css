@@ -193,13 +193,13 @@ p {
 
 /* Mobile menu button */
 .mobile-menu-toggle {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    padding: 8px;
-    background: none;
-    border: none;
-    gap: 4px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 32px;
+    padding: 0;
+    margin-left: 8px;
 }
 
 .mobile-menu-toggle span {

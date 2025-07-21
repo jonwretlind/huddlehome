@@ -5118,13 +5118,97 @@ ok. here's what I want. On desktop and mobile, I want the hambuger button menu a
 
 _**Assistant**_
 
+Perfect! Here’s how to achieve this:
 
+- The hamburger button should always be visible (desktop and mobile).
+- The menu should always be hidden by default and only shown when the hamburger is toggled, regardless of screen size.
+- The menu should always appear as a vertical dropdown (not horizontal) on all screen sizes.
+- The overlay and focus behavior should be the same on desktop and mobile.
 
 ---
 
+## **How to Implement**
 
+### 1. **Remove all desktop-specific CSS overrides for #mobile-nav-links and .mobile-menu-toggle.**
+- Delete or comment out any `@media (min-width: 769px)` rules that show the menu or hide the hamburger.
+
+### 2. **Keep the mobile menu CSS and JS for all screen sizes.**
+- The menu will always be hidden by default and only shown when `.active` is toggled.
+- The hamburger will always be visible.
+
+### 3. **(Optional) Adjust menu width for desktop if you want it narrower/wider.**
 
 ---
+
+## **I will apply these changes for you now.**
+
+---
+
+```diff
+    }
+  }
+- 
+- @media (min-width: 769px) {
+-   #mobile-nav-links {
+-     display: flex !important;
+-     position: static !important;
+-     background: none !important;
+-     box-shadow: none !important;
+-     width: auto !important;
+-     max-width: none !important;
+-     left: auto !important;
+-     right: auto !important;
+-     top: auto !important;
+-     transform: none !important;
+-     opacity: 1 !important;
+-     visibility: visible !important;
+-     z-index: auto !important;
+-     padding: 0 !important;
+-     margin: 0 !important;
+-     border: none !important;
+-   }
+-   #mobile-nav-links a {
+-     display: inline-block;
+-     white-space: nowrap;
+-     padding: 0 1.2em;
+-     font-size: 1.1em;
+-     color: #333;
+-     background: none;
+-     border: none;
+-     margin: 0;
+-     opacity: 1;
+-     transform: none;
+-     animation: none;
+-   }
+-   .mobile-menu-toggle {
+-     display: none !important;
+-   }
+- }
+  
+  #mobile-nav-links {
+```
+
+---
+
+Now, the hamburger menu and its behavior will be the same on both desktop and mobile:
+
+- The hamburger button is always visible.
+- The menu is always hidden by default and only shown when toggled, regardless of screen size.
+- The menu appears as a dropdown (vertical) on all devices.
+- Overlay and focus logic remain consistent everywhere.
+
+Please refresh and test on both desktop and mobile.  
+Let me know if you want any further tweaks to the menu’s width, position, or animation for desktop!
+
+---
+
+_**User**_
+
+on desktop, the hanbuger button is not showing up at all. I want to use the same elements for both desktop and mobile
+
+---
+
+_**Assistant**_
 
 
 
