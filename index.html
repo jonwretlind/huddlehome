@@ -397,9 +397,10 @@
   if (menuToggle && navLinks && overlay) {
     menuToggle.addEventListener('click', function() {
       var isOpen = navLinks.classList.toggle('active');
-      menuToggle.classList.toggle('active', isOpen);
       overlay.classList.toggle('active', isOpen);
+      menuToggle.classList.toggle('active', isOpen);
       setMenuTop();
+      console.log('Menu toggled. isOpen:', isOpen);
     });
     // Close menu on nav link click
     navLinks.querySelectorAll('a').forEach(function(link) {
