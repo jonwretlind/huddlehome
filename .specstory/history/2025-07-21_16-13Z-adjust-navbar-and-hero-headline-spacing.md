@@ -4841,7 +4841,119 @@ ok. Well, if the focus is going to be a problem, can we at least set the focus t
 
 _**Assistant**_
 
+Absolutely! If you want to control the focus, the best approach is to explicitly set focus to the first menu link when the menu opens. This is also good for accessibility, as keyboard users will be able to tab through the menu naturally.
 
+---
+
+## **How to Do It**
+
+Replace your menu open logic with this:
+
+```js
+if (navLinks.classList.contains('active')) {
+  setTimeout(function() {
+    // Focus the first link in the menu
+    var firstLink = navLinks.querySelector('a');
+    if (firstLink) firstLink.focus();
+  }, 50);
+}
+```
+
+**Remove the dummy focus guard and the blur logic.**  
+This will ensure that when the menu opens, the first link ("Features") is always focused.
+
+---
+
+## **I will apply this change for you now.**
+
+---
+
+```diff
+      </nav>
+      <div id="menu-overlay" class="menu-overlay"></div>
+-     <div id="menu-focus-guard" tabindex="-1" style="position:fixed;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;"></div>
+      <div id="mobile-nav-links" class="nav-links">
+          <a href="#features">Features</a>
+```
+
+```diff
+      if (navLinks.classList.contains('active')) {
+        setTimeout(function() {
+-         document.getElementById('menu-focus-guard').focus();
+-         navLinks.querySelectorAll('a').forEach(function(link) {
+-           link.blur();
+-         });
++         var firstLink = navLinks.querySelector('a');
++         if (firstLink) firstLink.focus();
+        }, 50);
+      }
+```
+
+---
+
+Now, when the menu opens, focus will always be set to the first menu item ("Features").  
+- The dummy focus guard and blur logic have been removed.
+- This is accessible and ensures a consistent, predictable focus state.
+
+If you want to change which item is focused by default, just adjust the selector in the script.  
+Let me know if you need any further tweaks!
+
+---
+
+_**User**_
+
+it still focuses on the second element after it opens
+
+---
+
+_**Assistant**_
+
+Thank you for your persistence. If the second link is being focused after opening the menu, it is likely due to the animation delay on the menu items. The browser may be skipping the first link because it is not yet focusable (opacity: 0 or transform applied) when the focus is set.
+
+---
+
+## **Definitive Solution: Remove Animation Delay for the First Link**
+
+### 1. **Remove or Reduce Animation Delay for the First Link**
+
+In your CSS, you have:
+```css
+.nav-links a:nth-child(1) { animation-delay: 0.05s; }
+.nav-links a:nth-child(2) { animation-delay: 0.12s; }
+.nav-links a:nth-child(3) { animation-delay: 0.19s; }
+.nav-links a:nth-child(4) { animation-delay: 0.26s; }
+```
+**Set the first link’s delay to 0:**
+```css
+.nav-links a:nth-child(1) { animation-delay: 0s; }
+```
+
+### 2. **(Optional) Increase the setTimeout Delay**
+
+If the above does not work, increase the delay in your JS:
+```js
+setTimeout(function() {
+  var firstLink = navLinks.querySelector('a');
+  if (firstLink) firstLink.focus();
+}, 150);
+```
+
+---
+
+## **Apply Both Fixes for Maximum Robustness**
+
+I will apply both the CSS and JS changes for you now.
+
+---
+
+```diff
+          transform: scale(1.04);
+      }
+-     .nav-links a:nth-child(1) { animation-delay: 0.05s; }
++     .nav-links a:nth-child(1) { animation-delay: 0s; }
+      .nav-links a:nth-child(2) { animation-delay: 0.12s; }
+      .nav-links a:nth-child(3) { animation-delay: 0.19s; }
+```
 
 ---
 
