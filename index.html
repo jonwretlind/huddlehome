@@ -40,6 +40,7 @@
             </div>
         </div>
     </nav>
+    <div class="menu-overlay"></div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -358,6 +359,7 @@
   var navbar = document.querySelector('.navbar');
   var menuToggle = document.querySelector('.mobile-menu-toggle');
   var navLinks = document.querySelector('.nav-links');
+  var overlay = document.querySelector('.menu-overlay');
   var ticking = false;
   function onScroll() {
     if (window.innerWidth > 768) {
@@ -379,24 +381,19 @@
   function closeMenu() {
     navLinks.classList.remove('active');
     menuToggle.classList.remove('active');
-    document.body.classList.remove('menu-overlay-active');
+    overlay.classList.remove('active');
   }
-  if (menuToggle && navLinks) {
+  if (menuToggle && navLinks && overlay) {
     menuToggle.addEventListener('click', function() {
       var isOpen = navLinks.classList.toggle('active');
       menuToggle.classList.toggle('active', isOpen);
-      document.body.classList.toggle('menu-overlay-active', isOpen);
+      overlay.classList.toggle('active', isOpen);
     });
     // Close menu on nav link click
     navLinks.querySelectorAll('a').forEach(function(link) {
       link.addEventListener('click', closeMenu);
     });
-    // Close menu if overlay is clicked
-    document.addEventListener('click', function(e) {
-      if (document.body.classList.contains('menu-overlay-active') && e.target === document.body) {
-        closeMenu();
-      }
-    });
+    overlay.addEventListener('click', closeMenu);
   }
   window.addEventListener('resize', onScroll);
   window.addEventListener('scroll', onScroll, { passive: true });

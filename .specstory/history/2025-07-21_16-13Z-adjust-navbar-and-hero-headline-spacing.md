@@ -1719,6 +1719,138 @@ Let’s make these changes now.
 
 ---
 
+```diff
+      transform: rotate(-45deg);
+    }
+-   .menu-overlay {
+-     display: none;
+-     position: absolute;
++   /* Remove .menu-overlay styles */
++   body.menu-overlay-active::after {
++     content: '';
++     position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(30, 30, 30, 0.32);
+      z-index: 1090;
++     pointer-events: auto;
+      transition: opacity 0.3s;
+-     opacity: 0;
+-     pointer-events: none;
+-   }
+-   .menu-overlay.active {
+-     display: block;
+      opacity: 1;
+-     pointer-events: auto;
+    }
+    .nav-links {
+```
+
+---
+
+```diff
+      <nav class="navbar">
+          <div class="nav-container">
+-             <div class="menu-overlay"></div>
+              <div class="nav-logo">
+                  <img src="assets/images/HH_logo_color.svg" alt="HuddleHome Logo" class="logo-image">
+```
+
+```diff
+    var menuToggle = document.querySelector('.mobile-menu-toggle');
+    var navLinks = document.querySelector('.nav-links');
+-   var overlay = document.querySelector('.menu-overlay');
+    var ticking = false;
+    function onScroll() {
+```
+
+```diff
+      navLinks.classList.remove('active');
+      menuToggle.classList.remove('active');
+-     overlay.classList.remove('active');
++     document.body.classList.remove('menu-overlay-active');
+    }
+-   if (menuToggle && navLinks && overlay) {
++   if (menuToggle && navLinks) {
+      menuToggle.addEventListener('click', function() {
+        var isOpen = navLinks.classList.toggle('active');
+        menuToggle.classList.toggle('active', isOpen);
+-       overlay.classList.toggle('active', isOpen);
++       document.body.classList.toggle('menu-overlay-active', isOpen);
+      });
+-     overlay.addEventListener('click', closeMenu);
+-     // Optional: close menu on nav link click
++     // Close menu on nav link click
+      navLinks.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', closeMenu);
+      });
++     // Close menu if overlay is clicked
++     document.addEventListener('click', function(e) {
++       if (document.body.classList.contains('menu-overlay-active') && e.target === document.body) {
++         closeMenu();
++       }
++     });
+    }
+    window.addEventListener('resize', onScroll);
+```
+
+---
+
+Now, the overlay is implemented as a `::after` pseudo-element on the `<body>`, which:
+
+- Always covers the entire viewport, regardless of DOM structure.
+- Is never "stuck" inside the navbar or any container.
+- The menu (`.nav-links`) always appears above the overlay, with glassmorphism and blur.
+- The overlay is toggled by adding/removing the `menu-overlay-active` class on `<body>`.
+- Clicking outside the menu (on the overlay) closes the menu.
+
+Try opening the menu now—you should see the overlay darken the background, and the menu appear above it with a glassy, blurred effect. If you want further tweaks, just let me know!
+
+---
+
+_**User**_
+
+The issue is that when the menu is active, the display, opacity and visibility are all set to hide the thing. Also, the overlay should appear underneath the nav element, but over the rest of the content area so the menu is not covered up
+
+---
+
+_**Assistant**_
+
+Thank you for the clear diagnosis and requirements!
+
+### Issues:
+1. **Menu Hidden When Active:**  
+   - The `.nav-links.active` rule sets `display: flex !important;`, but the base `.nav-links` rule also sets `opacity: 0` and `visibility: hidden`, which may override the active state due to CSS specificity/order.
+   - Solution: Ensure `.nav-links.active` always sets `opacity: 1` and `visibility: visible` with `!important` if needed, and that these rules come after the base rules.
+
+2. **Overlay Stacking Order:**  
+   - The overlay should appear between the navbar and the rest of the content, not above the navbar/menu.
+   - Solution: Use a fixed overlay with a z-index between the navbar/menu and the rest of the content. The navbar/menu should have a higher z-index than the overlay.
+
+---
+
+## Implementation Plan
+
+1. **Fix Menu Visibility:**
+   - In `.nav-links.active`, set `display: flex !important; opacity: 1 !important; visibility: visible !important;`.
+   - Make sure `.nav-links.active` comes after the base `.nav-links` rule.
+
+2. **Overlay Stacking:**
+   - Use a fixed `.menu-overlay` div (not a pseudo-element) placed directly after the navbar in the DOM.
+   - Set `.menu-overlay` to `z-index: 1050`.
+   - Set `.navbar` and `.nav-links` to `z-index: 1100`.
+   - The rest of the content remains at the default stacking context.
+
+---
+
+**Let’s implement this now:**
+- Add back a `.menu-overlay` div after the navbar.
+- Adjust CSS for correct z-index and visibility.
+- Update JS to toggle the overlay and menu as before.
+
+This will guarantee the overlay is always under the menu, and the menu is always visible when active.
+
+---
+
 
 
 ---

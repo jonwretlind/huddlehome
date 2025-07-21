@@ -1294,102 +1294,27 @@ html {
 /* --- Navbar Minimization Styles (Mobile) --- */
 @media (max-width: 768px) {
   .navbar {
-    padding: 0.7rem 0;
-    min-height: 52px;
-    transition: padding 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1);
+    z-index: 1100;
   }
-  .navbar.navbar-minimized {
-    padding: 0.18rem 0;
-    min-height: 36px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  }
-  .nav-logo .logo-image {
-    width: 220px; /* Larger logo on initial load */
-    transition: width 0.3s cubic-bezier(0.4,0,0.2,1);
-  }
-  .navbar.navbar-minimized .nav-logo .logo-image {
-    width: 150px;
-  }
-  .navbar.navbar-minimized .nav-logo h2 {
-    font-size: 1rem;
-  }
-  .nav-links {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: var(--white);
-    flex-direction: column;
-    padding: 1rem 0.5rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    display: none;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 999;
-    max-height: calc(100vh - var(--navbar-height, 52px));
-    overflow-y: auto;
-    animation: none;
-  }
-  .nav-links.active {
-    display: flex;
-    opacity: 1;
-    visibility: visible;
-    animation: fadeInMenu 0.25s ease;
-  }
-  @keyframes fadeInMenu {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  .mobile-menu-toggle {
+  .nav-container {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 28px;
-    width: 28px;
-    padding: 0;
-    margin-left: 8px;
+    width: 100%;
+    z-index: 1100;
   }
-  .mobile-menu-toggle span {
-    position: absolute;
-    left: 4px;
-    right: 4px;
-    height: 2.2px;
-    background: var(--orange-primary);
-    border-radius: 2px;
-    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-    display: block;
-  }
-  .mobile-menu-toggle span:nth-child(1) {
-    top: 6px;
-  }
-  .mobile-menu-toggle span:nth-child(2) {
-    top: 13px;
-  }
-  .mobile-menu-toggle span:nth-child(3) {
-    top: 20px;
-  }
-  .mobile-menu-toggle.active span:nth-child(1) {
-    top: 13px;
-    transform: rotate(45deg);
-  }
-  .mobile-menu-toggle.active span:nth-child(2) {
-    opacity: 0;
-  }
-  .mobile-menu-toggle.active span:nth-child(3) {
-    top: 13px;
-    transform: rotate(-45deg);
-  }
-  /* Remove .menu-overlay styles */
-  body.menu-overlay-active::after {
-    content: '';
+  .menu-overlay {
+    display: none;
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(30, 30, 30, 0.32);
-    z-index: 1090;
-    pointer-events: auto;
+    z-index: 1050;
     transition: opacity 0.3s;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .menu-overlay.active {
+    display: block;
     opacity: 1;
+    pointer-events: auto;
   }
   .nav-links {
     position: absolute;
@@ -1415,8 +1340,8 @@ html {
   }
   .nav-links.active {
     display: flex !important;
-    opacity: 1;
-    visibility: visible;
+    opacity: 1 !important;
+    visibility: visible !important;
     animation: fadeInMenu 0.25s ease;
     z-index: 1100;
   }
