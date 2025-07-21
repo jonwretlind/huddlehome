@@ -1293,18 +1293,31 @@ html {
 
 /* --- Navbar Minimization Styles (Mobile) --- */
 @media (max-width: 768px) {
+  /* --- Navbar Minimization --- */
   .navbar {
     z-index: 1200;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    padding: 0.7rem 0;
+    min-height: 52px;
+    transition: padding 0.3s cubic-bezier(0.4,0,0.2,1), min-height 0.3s cubic-bezier(0.4,0,0.2,1);
   }
-  .nav-container {
-    position: relative;
-    width: 100%;
-    z-index: 1200;
+  .navbar.navbar-minimized {
+    padding: 0.18rem 0;
+    min-height: 36px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
+  .nav-logo .logo-image {
+    width: 220px;
+    transition: width 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  .navbar.navbar-minimized .nav-logo .logo-image {
+    width: 150px;
+  }
+
+  /* --- Menu Overlay --- */
   .menu-overlay {
     display: none;
     position: fixed;
@@ -1320,6 +1333,8 @@ html {
     opacity: 1;
     pointer-events: auto;
   }
+
+  /* --- Mobile Nav Menu --- */
   .nav-links {
     position: fixed;
     left: 0;
@@ -1347,6 +1362,7 @@ html {
     -webkit-backdrop-filter: blur(16px) saturate(160%);
     transition: opacity 0.25s, transform 0.25s;
   }
+  /* --- Ensure menu is always visible when active --- */
   .nav-links.active {
     display: flex !important;
     opacity: 1 !important;
