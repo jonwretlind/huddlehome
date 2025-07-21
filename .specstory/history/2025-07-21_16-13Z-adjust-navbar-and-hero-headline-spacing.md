@@ -4957,9 +4957,32 @@ I will apply both the CSS and JS changes for you now.
 
 ---
 
-
+```diff
+          var firstLink = navLinks.querySelector('a');
+          if (firstLink) firstLink.focus();
+-       }, 50);
++       }, 150);
+      }
+    });
+```
 
 ---
+
+Now, the first menu link ("Features") will have no animation delay and will be immediately focusable.  
+The script also waits a bit longer (150ms) before setting focus, ensuring the link is ready.
+
+This should guarantee that the first link is focused when the menu opens, not the second.  
+Please refresh and test—let me know if this finally resolves the focus order!
+
+---
+
+_**User**_
+
+on desktop version, the menu isn't showing up at all
+
+---
+
+_**Assistant**_
 
 
 
