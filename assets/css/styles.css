@@ -1380,20 +1380,16 @@ html {
     top: 13px;
     transform: rotate(-45deg);
   }
-  .menu-overlay {
-    display: none;
-    position: absolute;
+  /* Remove .menu-overlay styles */
+  body.menu-overlay-active::after {
+    content: '';
+    position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(30, 30, 30, 0.32);
     z-index: 1090;
-    transition: opacity 0.3s;
-    opacity: 0;
-    pointer-events: none;
-  }
-  .menu-overlay.active {
-    display: block;
-    opacity: 1;
     pointer-events: auto;
+    transition: opacity 0.3s;
+    opacity: 1;
   }
   .nav-links {
     position: absolute;
