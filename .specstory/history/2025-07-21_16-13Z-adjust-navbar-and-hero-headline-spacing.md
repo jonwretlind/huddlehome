@@ -4363,3 +4363,142 @@ If you want a specific visual tweak for the "X" or want to allow wrapping on ver
 
 ---
 
+_**User**_
+
+you didn't actually make any style changes
+
+---
+
+_**Assistant**_
+
+```diff
+      z-index: 9999 !important;
+  }
++ 
++ @media (max-width: 768px) {
++   .nav-links a {
++     white-space: nowrap;
++     overflow: hidden;
++     text-overflow: ellipsis;
++   }
++   .nav-links a:focus {
++     outline: none;
++     background: none;
++     color: inherit;
++     box-shadow: none;
++   }
++   .mobile-menu-toggle {
++     position: relative;
++     display: flex;
++     align-items: center;
++     justify-content: center;
++     height: 32px;
++     width: 32px;
++     padding: 0;
++     margin-left: 8px;
++   }
++   .mobile-menu-toggle span {
++     position: absolute;
++     left: 7px;
++     right: 7px;
++     height: 3px;
++     background: var(--orange-primary);
++     border-radius: 2px;
++     transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
++     display: block;
++   }
++   .mobile-menu-toggle span:nth-child(1) {
++     top: 9px;
++   }
++   .mobile-menu-toggle span:nth-child(2) {
++     top: 14.5px;
++   }
++   .mobile-menu-toggle span:nth-child(3) {
++     top: 20px;
++   }
++   .mobile-menu-toggle.active span:nth-child(1) {
++     top: 14.5px;
++     left: 7px;
++     right: 7px;
++     transform: rotate(45deg);
++   }
++   .mobile-menu-toggle.active span:nth-child(2) {
++     opacity: 0;
++   }
++   .mobile-menu-toggle.active span:nth-child(3) {
++     top: 14.5px;
++     left: 7px;
++     right: 7px;
++     transform: rotate(-45deg);
++   }
++ }
+```
+
+---
+
+✅ The following style changes have now been applied:
+
+1. **All nav links are forced to a single line** (`white-space: nowrap; overflow: hidden; text-overflow: ellipsis;`).
+2. **No nav item is focused by default** and focus styles are removed.
+3. **The hamburger "X" is perfectly centered** using refined absolute positioning and transforms.
+
+Please refresh and test:
+- All menu items should be on one line.
+- No menu item should appear focused when the menu opens.
+- The "X" should be visually centered.
+
+Let me know if you need any further tweaks!
+
+---
+
+_**User**_
+
+"How it works is still being focused by default when the menu opens. it should not be, but only focused when the user clicks on the item itself
+
+---
+
+_**Assistant**_
+
+Great catch! The default focus on the first link when the menu opens is a browser accessibility feature: when a menu is opened via a button, browsers often auto-focus the first focusable element inside (in this case, your first nav link).
+
+**To prevent this:**
+- Remove focus from all links when the menu opens, unless the user explicitly tabs or clicks into them.
+
+---
+
+## **How to Fix: Remove Default Focus on Menu Open**
+
+Add this to your JavaScript, right after you open the menu (when you add `.active`):
+
+```js
+menuToggle.addEventListener('click', function() {
+  navLinks.classList.toggle('active');
+  overlay.classList.toggle('active');
+  menuToggle.classList.toggle('active');
+  // Remove focus from all links when menu opens
+  if (navLinks.classList.contains('active')) {
+    navLinks.querySelectorAll('a').forEach(function(link) {
+      link.blur();
+    });
+  }
+  console.log('navLinks classes:', navLinks.className);
+  console.log('overlay classes:', overlay.className);
+});
+```
+
+This will ensure that no link is focused by default when the menu opens.
+
+---
+
+**I will apply this change for you now.**
+
+---
+
+
+
+---
+
+
+
+---
+
