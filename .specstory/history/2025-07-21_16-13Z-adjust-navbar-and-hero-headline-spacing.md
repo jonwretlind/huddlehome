@@ -3112,3 +3112,214 @@ This guarantees the menu is always visible when it should be. Please test and co
 
 ---
 
+_**User**_
+
+the active class is stil not applying to the #mobile-nav-links element like it should 
+
+---
+
+_**Assistant**_
+
+Thank you for your persistence and clarity. If the `.active` class is still not being applied to `#mobile-nav-links`, even after the last update, then one of the following is happening:
+
+1. **The selector is wrong** (the element is not being found by `getElementById`).
+2. **The script is running before the DOM is ready** (so `navLinks` is `null`).
+3. **There is a JavaScript error elsewhere that is stopping execution.**
+
+---
+
+## **Definitive Debugging and Fix**
+
+### 1. **Add Console Logging for Debugging**
+
+Let’s add a log to confirm the element is found and the event is firing:
+
+```js
+console.log('navLinks:', navLinks);
+menuToggle.addEventListener('click', function() {
+  console.log('Hamburger clicked');
+  if (navLinks.classList.contains('active')) {
+    closeMenu();
+  } else {
+    openMenu();
+  }
+  console.log('navLinks classes:', navLinks.className);
+});
+```
+
+### 2. **Ensure the Script is at the End of the Body**
+
+The script must be after the HTML for `#mobile-nav-links` so the element exists when the script runs.
+
+### 3. **Check for Typos**
+
+- The element must be `<div id="mobile-nav-links" class="nav-links">...</div>`.
+- The JS must use `getElementById('mobile-nav-links')`.
+
+---
+
+## **Here’s the Corrected Script with Debugging**
+
+```js
+<script>
+(function() {
+  var navbar = document.querySelector('.navbar');
+  var menuToggle = document.querySelector('.mobile-menu-toggle');
+  var navLinks = document.getElementById('mobile-nav-links');
+  var overlay = document.getElementById('menu-overlay');
+  var ticking = false;
+
+  console.log('navLinks:', navLinks);
+
+  function setMenuTop() {
+    if (window.innerWidth <= 768 && navLinks && overlay && navbar) {
+      var height = navbar.offsetHeight;
+      navLinks.style.top = height + 'px';
+      overlay.style.top = height + 'px';
+    } else if (navLinks && overlay) {
+      navLinks.style.top = '';
+      overlay.style.top = '';
+    }
+  }
+
+  function onScroll() {
+    if (window.innerWidth > 768) {
+      navbar.classList.remove('navbar-minimized');
+      return;
+    }
+    if (!ticking) {
+      window.requestAnimationFrame(function() {
+        if (window.scrollY > 30) {
+          navbar.classList.add('navbar-minimized');
+        } else {
+          navbar.classList.remove('navbar-minimized');
+        }
+        setMenuTop();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  function openMenu() {
+    navLinks.classList.add('active');
+    menuToggle.classList.add('active');
+    overlay.classList.add('active');
+    setMenuTop();
+  }
+
+  function closeMenu() {
+    navLinks.classList.remove('active');
+    menuToggle.classList.remove('active');
+    overlay.classList.remove('active');
+  }
+
+  if (menuToggle && navLinks && overlay) {
+    menuToggle.addEventListener('click', function() {
+      console.log('Hamburger clicked');
+      if (navLinks.classList.contains('active')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+      console.log('navLinks classes:', navLinks.className);
+    });
+    overlay.addEventListener('click', closeMenu);
+    navLinks.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', closeMenu);
+    });
+  }
+
+  window.addEventListener('resize', function() {
+    setMenuTop();
+    onScroll();
+  });
+  window.addEventListener('scroll', onScroll, { passive: true });
+  document.addEventListener('DOMContentLoaded', function() {
+    setMenuTop();
+    onScroll();
+  });
+})();
+</script>
+```
+
+---
+
+## **What to Do Next**
+
+1. **Apply this script at the end of your body.**
+2. **Open your browser’s console.**
+3. **Click the hamburger.**
+4. **Check the console for:**
+   - The initial log of `navLinks:` (should not be null).
+   - The log `Hamburger clicked`.
+   - The log of `navLinks classes:` (should show `nav-links active` when open).
+
+---
+
+**If you see `navLinks: null`, your selector or script placement is wrong.**  
+**If you see the logs but the class is not added, copy the full HTML for the menu and hamburger and I’ll debug further.**
+
+---
+
+**I will apply this debug version for you now.**
+
+---
+
+```diff
+    var overlay = document.getElementById('menu-overlay');
+    var ticking = false;
++ 
++   console.log('navLinks:', navLinks);
+  
+    function setMenuTop() {
+```
+
+```diff
+    if (menuToggle && navLinks && overlay) {
+      menuToggle.addEventListener('click', function() {
++       console.log('Hamburger clicked');
+        if (navLinks.classList.contains('active')) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
++       console.log('navLinks classes:', navLinks.className);
+      });
+      overlay.addEventListener('click', closeMenu);
+```
+
+---
+
+Please open your browser’s console and try clicking the hamburger menu.  
+- You should see:
+  - `navLinks:` (should not be null)
+  - `Hamburger clicked`
+  - `navLinks classes:` (should show `nav-links active` when open)
+
+**If `navLinks` is null:**  
+- The script is running before the DOM is ready, or the ID/class is misspelled.
+
+**If the logs appear but the class is not added:**  
+- Please copy the relevant HTML for your hamburger and menu here so I can debug further.
+
+This will pinpoint exactly why `.active` is not being applied. Let me know what you see in the console!
+
+---
+
+_**User**_
+
+your debug script report this:
+Hamburger clicked
+(index):418 navLinks classes: nav-links active
+
+BUT, 
+
+---
+
+_**Assistant**_
+
+
+
+---
+

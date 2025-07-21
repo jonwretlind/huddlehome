@@ -1367,9 +1367,6 @@ html {
     display: block !important;
     opacity: 1 !important;
     visibility: visible !important;
-    transform: translateX(-50%) scale(1);
-    animation: fadeInMenu 0.25s ease;
-    z-index: 1100;
   }
   .nav-links a {
     padding: 14px 18px;
@@ -1417,5 +1414,13 @@ html {
   @keyframes menuItemIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+@media (max-width: 768px) {
+  #mobile-nav-links.active {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 }
