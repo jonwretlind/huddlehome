@@ -1424,3 +1424,11 @@ html {
     visibility: visible !important;
   }
 }
+
+#mobile-nav-links.active {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    background: #fff !important;
+    z-index: 9999 !important;
+  }
