@@ -376,8 +376,8 @@ document.addEventListener('DOMContentLoaded', function() {
           navbar.classList.add('navbar-minimized');
         } else {
           navbar.classList.remove('navbar-minimized');
-          setMenuTop();
         }
+        setMenuTop();
         ticking = false;
       });
       ticking = true;
@@ -422,8 +422,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (firstLink) firstLink.focus();
       }, 150);
     }
-    console.log('navLinks classes:', navLinks.className);
-    console.log('overlay classes:', overlay.className);
   });
 
   overlay.addEventListener('click', function() {
