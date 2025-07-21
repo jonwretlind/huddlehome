@@ -4328,7 +4328,27 @@ Here's what has been fixed and improved:
 3. **Hamburger "X" Alignment:**  
    - The hamburger menu icon now animates to a perfectly centered "X" when active, using absolute positioning and rotation for the bars.
 
-Please refresh and test on mobile.
+Please refresh and test on mobile.  
+If you want the "How it Works" menu item to wrap on small screens, let me know and I can adjust the `white-space` property for just that item.  
+If you need further tweaks, just say the word!
+
+---
+
+_**User**_
+
+"how it works" and all the link items should be on one line only. 
+The "how it works" item is showing as focused on opening it. None of the nav items should be focused by default
+The X still isn't centered
+
+---
+
+_**Assistant**_
+
+
+
+---
+
+
 
 ---
 
