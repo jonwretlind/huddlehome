@@ -166,6 +166,12 @@ p {
     margin: 0;
 }
 
+.nav-logo .logo-image {
+    width: 200px;
+    height: auto;
+    display: block;
+}
+
 .nav-links {
     display: flex;
     gap: 2rem;

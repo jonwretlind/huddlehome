@@ -41,3 +41,61 @@ The logo will now display the colorful HuddleHome SVG graphic instead of the pla
 
 ---
 
+_**User**_
+
+the nav-logo doesn't show up. it needs to be about 200px wide and there is no height or width in the stle
+
+---
+
+_**Assistant**_
+
+I need to check the current CSS styles for the nav-logo and add proper sizing for the SVG logo. Let me first look at the CSS file to see what styles are currently applied.
+
+
+---
+
+<details>
+            <summary>Searched codebase "styles.css" • **2** results</summary>
+        
+| File |
+|------|
+| `undefined` |
+| `undefined` |
+
+</details>
+
+---
+
+Read file: assets/css/styles.css
+
+---
+
+Now let me look specifically at the navbar and nav-logo styles:
+
+
+---
+
+Read file: assets/css/styles.css
+
+---
+
+I can see that the current CSS only has styles for `.nav-logo h2` but not for the new `.logo-image` class. I need to add styles for the logo image. Let me add the appropriate CSS styles:
+
+
+---
+
+
+
+---
+
+Perfect! I've added the CSS styles for the logo image. The changes I made:
+
+1. **Added `.nav-logo .logo-image` styles**:
+   - `width: 200px` - Sets the logo to exactly 200px wide as requested
+   - `height: auto` - Maintains the aspect ratio of the SVG
+   - `display: block` - Ensures proper display behavior
+
+The logo should now appear properly in the navigation bar at 200px wide while maintaining its aspect ratio. The SVG will scale proportionally and display the full HuddleHome logo with the house icon and text in the brand colors.
+
+---
+
