@@ -1335,7 +1335,7 @@ html {
   left: 50%;
   transform: translateX(-50%) scale(0.98);
   width: calc(100vw - 2rem);
-  max-width: 480px;
+  max-width: inherit;
   right: auto;
   /* top will be set by JS to match navbar height */
   background: linear-gradient(135deg, rgba(255,246,240,0.85) 0%, rgba(232,249,250,0.85) 100%);
