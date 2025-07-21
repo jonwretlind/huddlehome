@@ -4984,6 +4984,148 @@ on desktop version, the menu isn't showing up at all
 
 _**Assistant**_
 
+Thank you for catching this! The current menu logic is set up for mobile (max-width: 768px), and the menu is hidden by default (`display: none;`). On desktop, the menu should either be visible as a horizontal nav or not shown at all (if you have a separate desktop nav).
+
+**If you want the menu to show on desktop:**
+- You need to override the mobile-only CSS for `.nav-links` and `.nav-links.active` at larger screen sizes.
+
+---
+
+## **How to Fix**
+
+### 1. **Show the Menu on Desktop**
+
+Add this to your CSS (outside any media query):
+
+```css
+@media (min-width: 769px) {
+  #mobile-nav-links {
+    display: flex !important;
+    position: static !important;
+    background: none !important;
+    box-shadow: none !important;
+    width: auto !important;
+    max-width: none !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+  }
+  #mobile-nav-links a {
+    display: inline-block;
+    white-space: nowrap;
+    padding: 0 1.2em;
+    font-size: 1.1em;
+    color: #333;
+    background: none;
+    border: none;
+    margin: 0;
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+```
+
+### 2. **(Optional) Hide the Hamburger on Desktop**
+
+```css
+@media (min-width: 769px) {
+  .mobile-menu-toggle {
+    display: none !important;
+  }
+}
+```
+
+---
+
+## **Summary**
+
+- This will make the menu always visible and horizontal on desktop, and only toggleable on mobile.
+- The hamburger will be hidden on desktop.
+
+---
+
+**I will apply these changes for you now.**
+
+---
+
+```diff
+  }
+  
+- @media (max-width: 768px) {
+-   #mobile-nav-links.active {
+-     display: block !important;
++ @media (min-width: 769px) {
++   #mobile-nav-links {
++     display: flex !important;
++     position: static !important;
++     background: none !important;
++     box-shadow: none !important;
++     width: auto !important;
++     max-width: none !important;
++     left: auto !important;
++     right: auto !important;
++     top: auto !important;
++     transform: none !important;
+      opacity: 1 !important;
+      visibility: visible !important;
++     z-index: auto !important;
++     padding: 0 !important;
++     margin: 0 !important;
++     border: none !important;
++   }
++   #mobile-nav-links a {
++     display: inline-block;
++     white-space: nowrap;
++     padding: 0 1.2em;
++     font-size: 1.1em;
++     color: #333;
++     background: none;
++     border: none;
++     margin: 0;
++     opacity: 1;
++     transform: none;
++     animation: none;
++   }
++   .mobile-menu-toggle {
++     display: none !important;
+    }
+  }
+```
+
+---
+
+Your menu will now display horizontally and always be visible on desktop (width ≥ 769px), and the hamburger button will be hidden.  
+On mobile, the menu will remain toggleable as before.
+
+Please refresh and test on desktop—your menu should now show up as a horizontal nav.  
+Let me know if you want further desktop/mobile tweaks!
+
+---
+
+_**User**_
+
+ok. here's what I want. On desktop and mobile, I want the hambuger button menu and the behavior on desktop should be the same as mobile.
+
+---
+
+_**Assistant**_
+
+
+
+---
+
+
+
+---
+
 
 
 ---
