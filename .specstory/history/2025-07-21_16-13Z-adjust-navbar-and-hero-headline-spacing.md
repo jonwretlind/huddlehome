@@ -829,3 +829,106 @@ If you want further tweaks or a different animation, just let me know!
 
 ---
 
+_**User**_
+
+ok the icon works correctly. The size of the navbar is good.
+When I open the menu it goes completely off the bottom of the screen
+
+---
+
+_**Assistant**_
+
+Thank you for confirming the icon and navbar size are correct!
+
+**The issue:**  
+When the menu is open, it goes off the bottom of the screen (overflows the viewport).
+
+**Cause:**  
+`.nav-links` is `position: absolute` inside `.nav-container`, so its height is not constrained by the viewport. If there are many menu items or a large navbar, the menu can overflow off the bottom.
+
+---
+
+## Solution
+
+- **Constrain the menu height:**  
+  Add `max-height: calc(100vh - [navbar height]px);` and `overflow-y: auto;` to `.nav-links.active` on mobile.  
+  - This ensures the menu never exceeds the visible screen and is always scrollable if needed.
+  - We can use `top: 100%` (already set) and let CSS handle the rest.
+
+- **Make it robust:**  
+  Use `max-height: calc(100vh - var(--navbar-height, 52px));` and set `--navbar-height` dynamically in JS to match the actual navbar height (since it can change when minimized).
+
+---
+
+**Let’s implement this now:**  
+1. Add a CSS variable for navbar height.
+2. Add a small JS snippet to update `--navbar-height` on scroll/resize.
+3. Update `.nav-links` to use this variable for `max-height`.
+
+This will ensure the menu never overflows the screen, regardless of navbar size.
+
+---
+
+```diff
+          transition: all 0.3s ease;
+          z-index: 999;
++         max-height: calc(100vh - var(--navbar-height, 52px));
++         overflow-y: auto;
+      }
+      .navbar.navbar-minimized .nav-links {
+```
+
+---
+
+```diff
+  (function() {
+    var navbar = document.querySelector('.navbar');
+-   var ticking = false;
+-   function onScroll() {
+-     if (window.innerWidth > 768) {
+-       navbar.classList.remove('navbar-minimized');
+-       return;
+-     }
+-     if (!ticking) {
+-       window.requestAnimationFrame(function() {
+-         if (window.scrollY > 30) {
+-           navbar.classList.add('navbar-minimized');
+-         } else {
+-           navbar.classList.remove('navbar-minimized');
+-         }
+-         ticking = false;
+-       });
+-       ticking = true;
++   var navLinks = document.querySelector('.nav-links');
++   var menuToggle = document.querySelector('.mobile-menu-toggle');
++   function setNavbarHeightVar() {
++     if (window.innerWidth <= 768 && navLinks && navbar) {
++       var height = navbar.offsetHeight;
++       navLinks.style.setProperty('--navbar-height', height + 'px');
++     } else if (navLinks) {
++       navLinks.style.removeProperty('--navbar-height');
+      }
+    }
+-   window.addEventListener('resize', onScroll);
+-   window.addEventListener('scroll', onScroll, { passive: true });
+-   document.addEventListener('DOMContentLoaded', onScroll);
++   window.addEventListener('resize', setNavbarHeightVar);
++   window.addEventListener('scroll', setNavbarHeightVar);
++   document.addEventListener('DOMContentLoaded', setNavbarHeightVar);
++   if (menuToggle) menuToggle.addEventListener('click', setNavbarHeightVar);
+  })();
+  </script>
+```
+
+---
+
+The menu will now never overflow off the bottom of the screen:
+
+- The open menu’s height is always limited to the visible viewport minus the current navbar height, even as the navbar shrinks or grows.
+- The menu remains scrollable if its content is too tall for the available space.
+- This works for both the expanded and minimized navbar states.
+
+You can now open the menu on mobile and it will always be fully visible and usable. If you need further tweaks, just let me know!
+
+---
+

@@ -1276,26 +1276,31 @@ html {
     font-size: 1rem;
   }
   .nav-links {
-    position: fixed;
-    /* top will be set dynamically by JS */
+    position: absolute;
+    top: 100%;
     left: 0;
     right: 0;
     background: var(--white);
     flex-direction: column;
     padding: 1rem 0.5rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    transform: translateY(-100%);
+    display: none;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease;
     z-index: 999;
-    max-height: 90vh;
+    max-height: calc(100vh - var(--navbar-height, 52px));
     overflow-y: auto;
+    animation: none;
   }
   .nav-links.active {
-    transform: translateY(0);
+    display: flex;
     opacity: 1;
     visibility: visible;
+    animation: fadeInMenu 0.25s ease;
+  }
+  @keyframes fadeInMenu {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
   .mobile-menu-toggle {
     position: relative;
