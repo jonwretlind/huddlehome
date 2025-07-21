@@ -396,6 +396,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (navLinks.classList.contains('active')) {
       setTimeout(function() {
         //menuToggle.focus();
+        console.log('unfocusing links');
         navLinks.querySelectorAll('a').forEach(function(link) {
           link.blur();
         });
