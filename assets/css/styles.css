@@ -956,11 +956,6 @@ p {
     .navbar.navbar-minimized .nav-links {
         /* No change needed, top:100% will always follow navbar height */
     }
-    .nav-links.active {
-        transform: translateY(0);
-        opacity: 1;
-        visibility: visible;
-    }
     
     .nav-links a {
         padding: 14px 18px;
