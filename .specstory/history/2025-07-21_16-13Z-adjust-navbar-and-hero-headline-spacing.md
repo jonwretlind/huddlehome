@@ -5719,7 +5719,41 @@ on mobile devices, when the mobile menu us active, I want the orange "Get Starte
 
 _**Assistant**_
 
+```diff
+    transform: rotate(-45deg);
+  }
++ 
++ @media (max-width: 768px) {
++   .nav-cta {
++     display: none !important;
++   }
++   .nav-cta-mobile {
++     display: none !important;
++     text-align: center;
++     margin: 1.5rem auto 0 auto;
++   }
++   .nav-links.active + .nav-cta-mobile {
++     display: block !important;
++   }
++ }
++ @media (min-width: 769px) {
++   .nav-cta-mobile {
++     display: none !important;
++   }
++   .nav-cta {
++     display: block !important;
++   }
++ }
+```
 
+---
+
+Now, on mobile devices, the orange "Get Started" button will only appear below the menu options when the menu is open.  
+- On desktop, the button remains in the navbar.
+- On mobile, the button is hidden unless the menu is open, and it appears at the end of the menu.
+
+Please refresh and test on mobile.  
+Let me know if you want any further tweaks!
 
 ---
 
